@@ -33,6 +33,7 @@ public:
 	~MDEdit();
 
 private slots:
+	void newTab();
 	void loadFile();
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);

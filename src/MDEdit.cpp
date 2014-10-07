@@ -112,6 +112,13 @@ void MDEdit::_tab_changed(bool changed)
 }
 
 
+void MDEdit::newTab()
+{
+	EditorView* tab = new EditorView(QString());
+	tabWidget->addTab(tab, tab->filename());
+}
+
+
 void MDEdit::loadFile()
 {
 	QStringList filenames = QFileDialog::getOpenFileNames(this, "Open", QString(), "Markdown (*.md, *.markdown);;Any file (*.*)");
@@ -127,6 +134,8 @@ void MDEdit::setupToolbar()
 {
 	toolbar = new QToolBar(this);
 	toolbar->setMovable(false);
+
+	toolbar->addAction("New", this, SLOT(newTab()));
 
 	loadAction = toolbar->addAction("Load", this, SLOT(loadFile()));
 
