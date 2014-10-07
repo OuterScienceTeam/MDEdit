@@ -81,6 +81,7 @@ void MDEdit::_currentTabChanged(int index)
 	{
 		disconnect(this, SLOT(_tab_changed(bool)));
 		disconnect(current, SLOT(save()));
+		disconnect(current, SLOT(saveAs()));
 	}
 
 	if(index == -1)
@@ -95,6 +96,7 @@ void MDEdit::_currentTabChanged(int index)
 	// reconnect
 	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
 	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
+	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
 	current = tab;
 }
 
@@ -142,7 +144,6 @@ void MDEdit::setupToolbar()
 
 	saveAsAction = toolbar->addAction("Save As");
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
-	//connect(saveAsAction, SIGNAL(triggered()), this, SLOT(openFileSaveDialog()));
 
 	toolbar->addSeparator();
 
