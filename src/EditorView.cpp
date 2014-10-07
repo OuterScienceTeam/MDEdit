@@ -62,20 +62,19 @@ void EditorView::save()
 
 void EditorView::saveAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", "", "Markdown (*.md, *.markdown)");
+	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", "", "Markdown (*.md *.markdown)");
 	if(filename.isEmpty())
 		return;
 
 	_filename = filename;
-
-	if(!editor->save(_filename))
-		return;
 
 	if(!_existingfilename)
 	{
 		_existingfilename = true;
 		emit hasExistingFilename(true);
 	}
+
+	save();
 }
 
 
