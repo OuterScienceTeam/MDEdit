@@ -13,8 +13,8 @@ private:
 public:
 	explicit MarkdownEditor(QFont font, QWidget *parent = 0);
 
-	bool load(QString& filename);
-	bool save(QString& filename);
+	bool load(const QString& filename);
+	bool save(const QString& filename);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent* event);

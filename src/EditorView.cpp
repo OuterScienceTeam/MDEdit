@@ -22,17 +22,17 @@ EditorView::EditorView(QString filename)
 
 	if(filename.isEmpty())
 	{
-		_filename = QString("new%1").arg(automatic_name++);
-		_existingfilename = false;
+		_file.setFile(QString("new%1").arg(automatic_name++));
 	}
 	else
 	{
-		QFileInfo file(filename);
-		if(file.exists())
+		_file.setFile(filename);
+		if(_file.exists())
 		{
-			_existingfilename = true;
-			_filename = file.filePath();
-			editor->load(_filename);
+			// assure absolute path
+			QString absolutePath = _file.absoluteFilePath();
+			_file.setFile(absolutePath);
+			editor->load(absolutePath);
 		}
 	}
 
@@ -43,13 +43,13 @@ EditorView::EditorView(QString filename)
 
 void EditorView::save()
 {
-	if(!_existingfilename)
+	if(!_file.exists())
 	{
 		saveAs();
 		return;
 	}
 
-	if(!editor->save(_filename))
+	if(!editor->save(_file.absoluteFilePath()))
 		return;
 
 	if(_changed)
@@ -66,27 +66,38 @@ void EditorView::saveAs()
 	if(filename.isEmpty())
 		return;
 
-	_filename = filename;
+	bool exists = _file.exists();
 
-	if(!_existingfilename)
+	_file.setFile(filename);
+	// assure absolute path
+	QString absolutePath = _file.absoluteFilePath();
+	_file.setFile(absolutePath);
+
+	if(!editor->save(absolutePath))
+		return;
+
+	if(_changed)
 	{
-		_existingfilename = true;
-		emit hasExistingFilename(true);
+		_changed = false;
+		emit changed(false);
 	}
 
-	save();
+	if(!exists)
+	{
+		emit hasExistingFilename(true);
+	}
 }
 
 
 QString EditorView::filename()
 {
-	return _filename;
+	return _file.fileName();
 }
 
 
 bool EditorView::isExistingfilename()
 {
-	return _existingfilename;
+	return _file.exists();
 }
 
 
@@ -108,6 +119,5 @@ void EditorView::slotTextChanged()
 
 QString EditorView::tabLabel()
 {
-	QFileInfo fi(_filename);
-	return fi.name() + ((_changed) ? " *" : "");
+	return _file.fileName() + ((_changed) ? " *" : "");
 }

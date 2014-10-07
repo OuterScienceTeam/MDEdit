@@ -2,6 +2,7 @@
 #define EDITORVIEW_H
 
 #include <QWidget>
+#include <QFileInfo>
 
 #include "MarkdownEditor.h"
 
@@ -11,8 +12,7 @@ class EditorView : public QWidget
 private:
 	static int automatic_name;
 
-	QString _filename;
-	bool _existingfilename;
+	QFileInfo _file;
 	bool _changed;
 
 	MarkdownEditor* editor;

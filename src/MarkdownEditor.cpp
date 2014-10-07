@@ -39,7 +39,7 @@ MarkdownEditor::MarkdownEditor(QFont font, QWidget *parent)
 }
 
 
-bool MarkdownEditor::load(QString &filename)
+bool MarkdownEditor::load(const QString& filename)
 {
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -56,7 +56,7 @@ bool MarkdownEditor::load(QString &filename)
 }
 
 
-bool MarkdownEditor::save(QString &filename)
+bool MarkdownEditor::save(const QString& filename)
 {
 	QFile file(filename);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
