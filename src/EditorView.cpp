@@ -109,5 +109,5 @@ void EditorView::slotTextChanged()
 QString EditorView::tabLabel()
 {
 	QFileInfo fi(_filename);
-	return fi.baseName() + "." + fi.suffix() + ((_changed) ? " *" : "");
+	return fi.name() + ((_changed) ? " *" : "");
 }
