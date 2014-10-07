@@ -20,14 +20,10 @@ MDEdit::MDEdit(QWidget *parent) :
 	connect(tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(_tabCloseRequested(int)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(_currentTabChanged(int)));
 
-	EditorView* tab1 = new EditorView(QString());
-	tabWidget->addTab(tab1, tab1->filename());
-
-	EditorView* tab2 = new EditorView(QString());
-	tabWidget->addTab(tab2, tab2->filename());
-
 	statusbar = new QStatusBar(this);
 	this->setStatusBar(statusbar);
+
+	newTab();
 }
 
 
@@ -90,6 +86,7 @@ void MDEdit::_currentTabChanged(int index)
 	if(index == -1)
 	{
 		current = 0;
+		newTab();
 		return;
 	}
 
