@@ -76,7 +76,7 @@ void EditorView::saveAs()
 	if(!editor->save(absolutePath))
 		return;
 
-	if(_changed)
+	if(_changed || !exists)
 	{
 		_changed = false;
 		emit changed(false);
