@@ -42,6 +42,7 @@ MarkdownEditor::MarkdownEditor(QFont font, QWidget *parent)
 	setFrameStyle(QFrame::NoFrame);
 	setFrameShadow(QFrame::Plain);
 	setWordWrapMode(QTextOption::NoWrap);
+	setTabStopWidth(fontMetrics().width(QLatin1Literal("0000")));
 }
 
 
