@@ -203,7 +203,7 @@ void MDEdit::newTab(const QString& filename)
 
 void MDEdit::loadFile()
 {
-	QStringList filenames = QFileDialog::getOpenFileNames(this, "Open", QString(), "Markdown (*.md, *.markdown);;Any file (*.*)");
+	QStringList filenames = QFileDialog::getOpenFileNames(this, "Open", QString(), "Markdown (*.md *.markdown);;Any file (*.*)");
 	foreach(const QString& filename, filenames)
 	{
 		newTab(filename);
