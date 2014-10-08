@@ -10,8 +10,6 @@ MDEdit::MDEdit(QWidget *parent) :
 {
 	current = 0;
 
-	setupToolbar();
-
 	statusbar = new QStatusBar(this);
 	this->setStatusBar(statusbar);
 
@@ -44,6 +42,9 @@ MDEdit::MDEdit(QWidget *parent) :
 
 	splitter->setStretchFactor(0, 1);
 	splitter->setStretchFactor(1, 0);
+
+
+	setupToolbar();
 
 
 	newTab();
@@ -215,6 +216,12 @@ void MDEdit::setupToolbar()
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
 
 	toolbar->addSeparator();
+
+	QAction* previewAction = toolbar->addAction("Preview");
+	previewAction->setCheckable(true);
+	previewAction->setChecked(true);
+	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
+
 
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 }
