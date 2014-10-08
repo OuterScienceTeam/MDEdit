@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QToolBar>
-#include <QTabWidget>
 #include <QStatusBar>
-#include <QList>
+#include <QTabBar>
+#include <QStackedWidget>
+#include <QMap>
 #include <QAction>
 
 #include "EditorView.h"
@@ -20,10 +21,12 @@ private:
 	QAction* loadAction;
 	QAction* saveAsAction;
 
-	QTabWidget* tabWidget;
-
 	QStatusBar* statusbar;
 
+	QWidget* central;
+	QMap<QString, EditorView*> tabs;
+	QTabBar* tabBar;
+	QStackedWidget* tabStack;
 	EditorView* current;
 
 	void setupToolbar();
@@ -33,8 +36,9 @@ public:
 	~MDEdit();
 
 private slots:
-	void newTab();
+	void newTab(const QString& filename = QString());
 	void loadFile();
+
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);
 	void _tab_changed(bool);

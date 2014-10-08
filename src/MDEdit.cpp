@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
-
+#include <QVBoxLayout>
 
 MDEdit::MDEdit(QWidget *parent) :
 	QMainWindow(parent)
@@ -12,16 +12,27 @@ MDEdit::MDEdit(QWidget *parent) :
 
 	setupToolbar();
 
-	tabWidget = new QTabWidget(this);
-	this->setCentralWidget(tabWidget);
-	tabWidget->setTabsClosable(true);
-	tabWidget->setMovable(true);
-
-	connect(tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(_tabCloseRequested(int)));
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(_currentTabChanged(int)));
-
 	statusbar = new QStatusBar(this);
 	this->setStatusBar(statusbar);
+
+	central = new QWidget(this);
+	QVBoxLayout* layout = new QVBoxLayout(central);
+	layout->setContentsMargins(0, 0, 0, 0);
+	central->setLayout(layout);
+	this->setCentralWidget(central);
+
+	tabBar = new QTabBar(this);
+	tabBar->setTabsClosable(true);
+	tabBar->setMovable(true);
+	layout->addWidget(tabBar);
+
+	connect(tabBar, SIGNAL(tabCloseRequested(int)), this, SLOT(_tabCloseRequested(int)));
+	connect(tabBar, SIGNAL(currentChanged(int)), this, SLOT(_currentTabChanged(int)));
+
+
+	tabStack = new QStackedWidget(this);
+	layout->addWidget(tabStack);
+
 
 	newTab();
 }
@@ -30,14 +41,18 @@ MDEdit::MDEdit(QWidget *parent) :
 MDEdit::~MDEdit()
 {
 	delete toolbar;
-	delete tabWidget;
 	delete statusbar;
+
+	delete central;
 }
 
 
 void MDEdit::_tabCloseRequested(int index)
 {
-	EditorView* tab = reinterpret_cast<EditorView*>(tabWidget->widget(index));
+	QString key = tabBar->tabData(index).toString();
+
+	EditorView* tab = tabs.value(key);
+
 	qDebug() << index << tab->filename();
 
 	if(tab->isChanged())
@@ -69,7 +84,11 @@ void MDEdit::_tabCloseRequested(int index)
 		}
 	}
 
-	tabWidget->removeTab(index);
+	tabs.remove(key);
+	tabStack->removeWidget(tab);
+	tabBar->removeTab(index);
+	delete tab;
+	tabBar->repaint();
 }
 
 
@@ -92,7 +111,10 @@ void MDEdit::_currentTabChanged(int index)
 		return;
 	}
 
-	EditorView* tab = reinterpret_cast<EditorView*>(tabWidget->widget(index));
+	QString key = tabBar->tabData(index).toString();
+	EditorView* tab = tabs.value(key);
+
+	tabStack->setCurrentWidget(tab);
 
 	// reconnect
 	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
@@ -106,16 +128,23 @@ void MDEdit::_tab_changed(bool changed)
 {
 	EditorView* tab = reinterpret_cast<EditorView*>(QObject::sender());
 	//update label
-	tabWidget->setTabText(tabWidget->currentIndex(), tab->tabLabel());
+	tabBar->setTabText(tabBar->currentIndex(), tab->tabLabel());
 
 	saveAction->setEnabled(changed);
 }
 
 
-void MDEdit::newTab()
+void MDEdit::newTab(const QString& filename)
 {
-	EditorView* tab = new EditorView(QString());
-	tabWidget->addTab(tab, tab->filename());
+	EditorView* newFile = new EditorView(filename);
+	tabBar->blockSignals(true);
+	int index = tabBar->addTab(newFile->tabLabel());
+	tabBar->setTabData(index, QVariant(newFile->fullFilename()));
+	tabs.insert(newFile->fullFilename(), newFile);
+	tabBar->setCurrentIndex(index);
+	tabStack->addWidget(newFile);
+	tabBar->blockSignals(false);
+	emit tabBar->currentChanged(index);
 }
 
 
@@ -124,8 +153,7 @@ void MDEdit::loadFile()
 	QStringList filenames = QFileDialog::getOpenFileNames(this, "Open", QString(), "Markdown (*.md, *.markdown);;Any file (*.*)");
 	foreach(const QString& filename, filenames)
 	{
-		EditorView* newFile = new EditorView(filename);
-		tabWidget->addTab(newFile, newFile->tabLabel());
+		newTab(filename);
 	}
 }
 
