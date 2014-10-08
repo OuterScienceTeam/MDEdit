@@ -30,8 +30,20 @@ MDEdit::MDEdit(QWidget *parent) :
 	connect(tabBar, SIGNAL(currentChanged(int)), this, SLOT(_currentTabChanged(int)));
 
 
+	splitter = new ThinSplitter(this);
+	splitter->setChildrenCollapsible(false);
+	layout->addWidget(splitter);
+
 	tabStack = new QStackedWidget(this);
-	layout->addWidget(tabStack);
+	splitter->addWidget(tabStack);
+
+	htmlPreview = new QTextBrowser(this);
+	htmlPreview->setFrameStyle(QFrame::NoFrame);
+	htmlPreview->setFrameShadow(QFrame::Plain);
+	splitter->addWidget(htmlPreview);
+
+	splitter->setStretchFactor(0, 1);
+	splitter->setStretchFactor(1, 0);
 
 
 	newTab();
@@ -101,6 +113,7 @@ void MDEdit::_currentTabChanged(int index)
 	{
 		disconnect(this, SLOT(_tab_changed(bool)));
 		disconnect(this, SLOT(_tab_filenameChanged()));
+		disconnect(this, SLOT(_tab_changed()));
 		disconnect(current, SLOT(save()));
 		disconnect(current, SLOT(saveAs()));
 	}
@@ -120,9 +133,12 @@ void MDEdit::_currentTabChanged(int index)
 	// reconnect
 	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
 	connect(tab, SIGNAL(filenameChanged()), this, SLOT(_tab_filenameChanged()));
+	connect(tab, SIGNAL(changed()), this, SLOT(_tab_changed()));
 	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
 	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
 	current = tab;
+
+	_tab_changed();
 }
 
 
@@ -141,6 +157,12 @@ void MDEdit::_tab_filenameChanged()
 	tabBar->setTabData(tabBar->currentIndex(), current->fullFilename());
 
 	updateUI();
+}
+
+
+void MDEdit::_tab_changed()
+{
+	htmlPreview->setHtml(current->getHtml());
 }
 
 

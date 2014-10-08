@@ -8,9 +8,10 @@
 #include <QStackedWidget>
 #include <QMap>
 #include <QAction>
+#include <QTextBrowser>
 
 #include "EditorView.h"
-
+#include "ThinSplitter.h"
 
 class MDEdit : public QMainWindow
 {
@@ -29,6 +30,9 @@ private:
 	QStackedWidget* tabStack;
 	EditorView* current;
 
+	ThinSplitter* splitter;
+	QTextBrowser* htmlPreview;
+
 	void setupToolbar();
 	void updateUI();
 
@@ -44,6 +48,7 @@ private slots:
 	void _currentTabChanged(int index);
 	void _tab_changed(bool);
 	void _tab_filenameChanged();
+	void _tab_changed();
 };
 
 #endif // MDEDIT_H

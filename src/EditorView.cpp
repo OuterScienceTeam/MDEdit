@@ -124,6 +124,14 @@ void EditorView::slotTextChanged()
 		_changed = true;
 		emit changed(true);
 	}
+
+	emit changed();
+}
+
+
+QString EditorView::getHtml()
+{
+	return editor->getHtml();
 }
 
 

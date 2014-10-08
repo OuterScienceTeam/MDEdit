@@ -9,6 +9,8 @@
 #include <QStringBuilder>
 #include <QDebug>
 
+#include "MarkdownParser.h"
+
 
 static void toPlainText(QString& text)
 {
@@ -76,6 +78,14 @@ bool MarkdownEditor::save(const QString& filename)
 	output << contents;
 
 	return true;
+}
+
+
+QString MarkdownEditor::getHtml()
+{
+	QString markdown = toPlainText();
+	::toPlainText(markdown);
+	return parseMarkdownPage(markdown);
 }
 
 

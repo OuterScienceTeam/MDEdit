@@ -27,10 +27,13 @@ public:
 
 	QString tabLabel();
 
+	QString getHtml();
+
 signals:
 	void changed(bool changed);
 	void hasExistingFilename(bool hasExistingFilename);
 	void filenameChanged();
+	void changed();
 
 private slots:
 	void slotTextChanged();
