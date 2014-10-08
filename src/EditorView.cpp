@@ -13,6 +13,8 @@ EditorView::EditorView(QString filename)
 	_changed = false;
 
 	QHBoxLayout* layout = new QHBoxLayout(this);
+	layout->setMargin(0);
+	layout->setSpacing(0);
 
 	editor = new MarkdownEditor(QFont("DejaVu Sans Mono"), this);
 	layout->addWidget(editor);

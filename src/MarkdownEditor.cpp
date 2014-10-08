@@ -36,6 +36,9 @@ MarkdownEditor::MarkdownEditor(QFont font, QWidget *parent)
 	: QPlainTextEdit(parent)
 {
 	setFont(font);
+	setContentsMargins(0, 0, 0, 0);
+	setFrameStyle(QFrame::NoFrame);
+	setFrameShadow(QFrame::Plain);
 }
 
 
