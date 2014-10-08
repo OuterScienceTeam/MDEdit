@@ -48,6 +48,7 @@ void MDEdit::_tabCloseRequested(int index)
 		dialog.addButton(QMessageBox::Save);
 		dialog.addButton(QMessageBox::Cancel);
 		dialog.addButton(QMessageBox::Discard);
+		dialog.setDefaultButton(QMessageBox::Cancel);
 		dialog.setText("File \"" + tab->filename() + "\" was modified.\nDo you wish to save it?");
 		switch(dialog.exec())
 		{
