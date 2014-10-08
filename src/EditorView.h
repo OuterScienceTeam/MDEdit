@@ -13,25 +13,25 @@ private:
 	static int automatic_name;
 
 	QFileInfo _file;
+	bool _virtual;
 	bool _changed;
 
 	MarkdownEditor* editor;
 
 public:
-	explicit EditorView(QString filename);
+	EditorView(QString filename);
 
-	QString filename();
-	QString fullFilename();
-	bool isExistingfilename();
-	bool isChanged();
+	QString filename() const;
+	QString fullFilename() const;
+	bool isVirtual() const;
+	bool isChanged() const;
 
-	QString tabLabel();
+	QString tabLabel() const;
 
-	QString getHtml();
+	QString getHtml() const;
 
 signals:
 	void changed(bool changed);
-	void hasExistingFilename(bool hasExistingFilename);
 	void filenameChanged();
 	void changed();
 

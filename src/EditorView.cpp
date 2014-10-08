@@ -24,17 +24,17 @@ EditorView::EditorView(QString filename)
 
 	if(filename.isEmpty())
 	{
-		_file.setFile(QString("new%1").arg(automatic_name++));
+		_virtual = true;
+		_file.setFile(QString("new%1.md").arg(automatic_name++));
 	}
 	else
 	{
+		_virtual = false;
 		_file.setFile(filename);
+		_file.makeAbsolute();
 		if(_file.exists())
 		{
-			// assure absolute path
-			QString absolutePath = _file.absoluteFilePath();
-			_file.setFile(absolutePath);
-			editor->load(absolutePath);
+			editor->load(_file.absoluteFilePath());
 		}
 	}
 
@@ -45,7 +45,7 @@ EditorView::EditorView(QString filename)
 
 void EditorView::save()
 {
-	if(!_file.exists())
+	if(_virtual)
 	{
 		saveAs();
 		return;
@@ -68,50 +68,43 @@ void EditorView::saveAs()
 	if(filename.isEmpty())
 		return;
 
-	bool exists = _file.exists();
-
 	_file.setFile(filename);
-	// assure absolute path
-	QString absolutePath = _file.absoluteFilePath();
-	_file.setFile(absolutePath);
+	_file.makeAbsolute();
 
-	if(!editor->save(absolutePath))
+	if(!editor->save(_file.absoluteFilePath()))
 		return;
 
-	if(_changed || !exists)
+	if(_changed || _virtual)
 	{
 		_changed = false;
 		emit changed(false);
 	}
 
-	if(!exists)
-	{
-		emit hasExistingFilename(true);
-	}
+	_virtual = false;
 
 	emit filenameChanged();
 }
 
 
-QString EditorView::filename()
+QString EditorView::filename() const
 {
 	return _file.fileName();
 }
 
 
-QString EditorView::fullFilename()
+QString EditorView::fullFilename() const
 {
-	return isExistingfilename() ? _file.absoluteFilePath() : filename();
+	return isVirtual() ? _file.absoluteFilePath() : filename();
 }
 
 
-bool EditorView::isExistingfilename()
+bool EditorView::isVirtual() const
 {
-	return _file.exists();
+	return _virtual;
 }
 
 
-bool EditorView::isChanged()
+bool EditorView::isChanged() const
 {
 	return _changed;
 }
@@ -129,13 +122,13 @@ void EditorView::slotTextChanged()
 }
 
 
-QString EditorView::getHtml()
+QString EditorView::getHtml() const
 {
 	return editor->getHtml();
 }
 
 
-QString EditorView::tabLabel()
+QString EditorView::tabLabel() const
 {
 	return _file.fileName() + ((_changed) ? " *" : "");
 }
