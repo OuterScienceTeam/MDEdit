@@ -86,12 +86,20 @@ void EditorView::saveAs()
 	{
 		emit hasExistingFilename(true);
 	}
+
+	emit filenameChanged();
 }
 
 
 QString EditorView::filename()
 {
 	return _file.fileName();
+}
+
+
+QString EditorView::fullFilename()
+{
+	return isExistingfilename() ? _file.absoluteFilePath() : filename();
 }
 
 

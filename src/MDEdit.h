@@ -42,6 +42,7 @@ private slots:
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);
 	void _tab_changed(bool);
+	void _tab_filenameChanged();
 };
 
 #endif // MDEDIT_H

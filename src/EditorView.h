@@ -21,6 +21,7 @@ public:
 	explicit EditorView(QString filename);
 
 	QString filename();
+	QString fullFilename();
 	bool isExistingfilename();
 	bool isChanged();
 
@@ -29,6 +30,7 @@ public:
 signals:
 	void changed(bool changed);
 	void hasExistingFilename(bool hasExistingFilename);
+	void filenameChanged();
 
 private slots:
 	void slotTextChanged();

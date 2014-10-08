@@ -100,6 +100,7 @@ void MDEdit::_currentTabChanged(int index)
 	if(current)
 	{
 		disconnect(this, SLOT(_tab_changed(bool)));
+		disconnect(this, SLOT(_tab_filenameChanged()));
 		disconnect(current, SLOT(save()));
 		disconnect(current, SLOT(saveAs()));
 	}
@@ -118,6 +119,7 @@ void MDEdit::_currentTabChanged(int index)
 
 	// reconnect
 	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
+	connect(tab, SIGNAL(filenameChanged()), this, SLOT(_tab_filenameChanged()));
 	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
 	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
 	current = tab;
@@ -131,6 +133,19 @@ void MDEdit::_tab_changed(bool changed)
 	tabBar->setTabText(tabBar->currentIndex(), tab->tabLabel());
 
 	saveAction->setEnabled(changed);
+}
+
+
+void MDEdit::_tab_filenameChanged()
+{
+	tabs.remove(tabs.key(current));
+	tabs.insert(current->fullFilename(), current);
+	tabBar->setTabData(tabBar->currentIndex(), current->fullFilename());
+
+	// update label
+	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
+
+	saveAction->setEnabled(false);
 }
 
 
