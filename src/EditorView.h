@@ -41,6 +41,7 @@ private slots:
 public slots:
 	void save();
 	void saveAs();
+	void exportHtml();
 };
 
 #endif // EDITORVIEW_H

@@ -213,6 +213,12 @@ void MDEdit::openFile()
 }
 
 
+void MDEdit::exportHtml()
+{
+	current->exportHtml();
+}
+
+
 void MDEdit::updateUI()
 {
 	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
@@ -244,6 +250,9 @@ void MDEdit::setupToolbar()
 	previewAction->setChecked(true);
 	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
 
+	toolbar->addSeparator();
+
+	toolbar->addAction("Export HTML", this, SLOT(exportHtml()));
 
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 }

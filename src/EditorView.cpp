@@ -3,6 +3,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHBoxLayout>
+#include <QMessageBox>
+#include <QTextStream>
 
 
 int EditorView::automatic_name = 1;
@@ -83,6 +85,26 @@ void EditorView::saveAs()
 	_virtual = false;
 
 	emit filenameChanged();
+}
+
+
+void EditorView::exportHtml()
+{
+	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", "", "Hypertext Markup Language file (*.html *.htm)");
+	if(filename.isEmpty())
+		return;
+
+	QFile file(filename);
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
+		return;
+	}
+
+	QTextStream output(&file);
+	output.setCodec("UTF-8");
+	output << editor->getHtml();
+	file.close();
 }
 
 

@@ -43,6 +43,7 @@ public:
 private slots:
 	void newTab(const QString& filename = QString());
 	void openFile();
+	void exportHtml();
 
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);
