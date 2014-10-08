@@ -41,6 +41,7 @@ MarkdownEditor::MarkdownEditor(QFont font, QWidget *parent)
 	setContentsMargins(0, 0, 0, 0);
 	setFrameStyle(QFrame::NoFrame);
 	setFrameShadow(QFrame::Plain);
+	setWordWrapMode(QTextOption::NoWrap);
 }
 
 
