@@ -169,6 +169,22 @@ void MDEdit::_tab_changed()
 
 void MDEdit::newTab(const QString& filename)
 {
+	QFileInfo file(filename);
+	QString key = file.absoluteFilePath();
+	if(tabs.contains(key))
+	{
+		// focus the tab
+		for(int i = 0; i < tabBar->count(); i++)
+		{
+			if(tabBar->tabData(i).toString() == key)
+			{
+				tabBar->setCurrentIndex(i);
+				break;
+			}
+		}
+		return;
+	}
+
 	EditorView* newFile = new EditorView(filename);
 	tabBar->blockSignals(true);
 	int index = tabBar->addTab(newFile->tabLabel());
