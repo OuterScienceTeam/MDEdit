@@ -5,11 +5,11 @@
 #include <QFileDialog>
 #include <QVBoxLayout>
 
-MDEdit::MDEdit(QWidget *parent) :
-	QMainWindow(parent)
-{
-	current = 0;
 
+MDEdit::MDEdit(QWidget *parent) :
+	QMainWindow(parent),
+	current(0)
+{
 	statusbar = new QStatusBar(this);
 	this->setStatusBar(statusbar);
 
@@ -57,6 +57,10 @@ MDEdit::~MDEdit()
 	delete toolbar;
 	delete statusbar;
 
+	delete tabBar;
+	delete htmlPreview;
+	delete tabStack;
+	delete splitter;
 	delete central;
 }
 
@@ -144,10 +148,8 @@ void MDEdit::_currentTabChanged(int index)
 }
 
 
-void MDEdit::_tab_changed(bool changed)
+void MDEdit::_tab_changed(bool /*changed*/)
 {
-	EditorView* tab = reinterpret_cast<EditorView*>(QObject::sender());
-
 	updateUI();
 }
 
@@ -201,7 +203,7 @@ void MDEdit::newTab(const QString& filename)
 }
 
 
-void MDEdit::loadFile()
+void MDEdit::openFile()
 {
 	QStringList filenames = QFileDialog::getOpenFileNames(this, "Open", QString(), "Markdown (*.md *.markdown);;Any file (*.*)");
 	foreach(const QString& filename, filenames)
@@ -226,7 +228,7 @@ void MDEdit::setupToolbar()
 
 	toolbar->addAction("New", this, SLOT(newTab()));
 
-	loadAction = toolbar->addAction("Load", this, SLOT(loadFile()));
+	loadAction = toolbar->addAction("Load", this, SLOT(openFile()));
 
 	saveAction = toolbar->addAction("Save");
 	saveAction->setDisabled(true);

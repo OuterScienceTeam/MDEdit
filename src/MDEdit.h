@@ -37,12 +37,12 @@ private:
 	void updateUI();
 
 public:
-	explicit MDEdit(QWidget *parent = 0);
+	MDEdit(QWidget *parent = 0);
 	~MDEdit();
 
 private slots:
 	void newTab(const QString& filename = QString());
-	void loadFile();
+	void openFile();
 
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);
