@@ -164,7 +164,10 @@ void MDEdit::_tab_filenameChanged()
 
 void MDEdit::_tab_changed()
 {
-	htmlPreview->setHtml(current->getHtml());
+	if(htmlPreview->isVisible())
+	{
+		htmlPreview->setHtml(current->getHtml());
+	}
 }
 
 
