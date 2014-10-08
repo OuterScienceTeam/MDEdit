@@ -38,6 +38,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	htmlPreview = new QTextBrowser(this);
 	htmlPreview->setFrameStyle(QFrame::NoFrame);
 	htmlPreview->setFrameShadow(QFrame::Plain);
+	htmlPreview->setStyleSheet("background: #F5F5F5;");
 	splitter->addWidget(htmlPreview);
 
 	splitter->setStretchFactor(0, 1);
