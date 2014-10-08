@@ -1,13 +1,10 @@
 #include "MarkdownEditor.h"
 
-#include <QTextBlock>
 #include <QMenu>
 #include <QChar>
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
-#include <QStringBuilder>
-#include <QDebug>
 
 #include "MarkdownParser.h"
 
@@ -51,13 +48,15 @@ bool MarkdownEditor::load(const QString& filename)
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for reading.");
+		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for reading. Please check whether you have read permission to the file.");
 		return false;
 	}
 
 	QTextStream input(&file);
 
 	this->setPlainText(input.readAll());
+
+	file.close();
 
 	return true;
 }
@@ -68,7 +67,7 @@ bool MarkdownEditor::save(const QString& filename)
 	QFile file(filename);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
-		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
+		QMessageBox::critical(this->window(), "Error opening file", "File \"" + filename + "\" could not be opened for writing. Please check whether you have write permission to the file.");
 		return false;
 	}
 
@@ -78,6 +77,7 @@ bool MarkdownEditor::save(const QString& filename)
 	QTextStream output(&file);
 	output.setCodec("UTF-8");
 	output << contents;
+	file.close();
 
 	return true;
 }
