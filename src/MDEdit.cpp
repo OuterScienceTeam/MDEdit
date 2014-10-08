@@ -129,10 +129,8 @@ void MDEdit::_currentTabChanged(int index)
 void MDEdit::_tab_changed(bool changed)
 {
 	EditorView* tab = reinterpret_cast<EditorView*>(QObject::sender());
-	//update label
-	tabBar->setTabText(tabBar->currentIndex(), tab->tabLabel());
 
-	saveAction->setEnabled(changed);
+	updateUI();
 }
 
 
@@ -142,10 +140,7 @@ void MDEdit::_tab_filenameChanged()
 	tabs.insert(current->fullFilename(), current);
 	tabBar->setTabData(tabBar->currentIndex(), current->fullFilename());
 
-	// update label
-	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
-
-	saveAction->setEnabled(false);
+	updateUI();
 }
 
 
@@ -170,6 +165,14 @@ void MDEdit::loadFile()
 	{
 		newTab(filename);
 	}
+}
+
+
+void MDEdit::updateUI()
+{
+	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
+
+	saveAction->setEnabled(current->isChanged());
 }
 
 

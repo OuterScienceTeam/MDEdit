@@ -30,6 +30,7 @@ private:
 	EditorView* current;
 
 	void setupToolbar();
+	void updateUI();
 
 public:
 	explicit MDEdit(QWidget *parent = 0);
