@@ -30,12 +30,6 @@ QString parseMarkdownPage(QString markdown)
 				 "<html>\n"
 				 "<head>\n"
 				 "\t<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\"/>\n");
-	if(date)
-	{
-		page.append("\t<meta http-equiv=\"Date\" content=\"");
-		page.append(date);
-		page.append("\"/>\n");
-	}
 	if(title)
 	{
 		page.append("\t<title>");
@@ -47,6 +41,12 @@ QString parseMarkdownPage(QString markdown)
 		page.append("\t<meta name=\"author\" content=\"");
 		page.append(author);
 		page.append("\" />\n");
+	}
+	if(date)
+	{
+		page.append("\t<meta http-equiv=\"Date\" content=\"");
+		page.append(date);
+		page.append("\"/>\n");
 	}
 	if(css)
 	{
