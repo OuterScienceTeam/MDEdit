@@ -120,7 +120,7 @@ QString EditorView::filename() const
 
 QString EditorView::fullFilename() const
 {
-	return isVirtual() ? _file.absoluteFilePath() : filename();
+	return isVirtual() ? filename() : _file.absoluteFilePath();
 }
 
 
