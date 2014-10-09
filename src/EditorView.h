@@ -27,6 +27,7 @@ public:
 	QString fullFilename() const;
 	bool isVirtual() const;
 	bool isChanged() const;
+	int length() const;
 
 	QString tabLabel() const;
 
@@ -36,9 +37,11 @@ signals:
 	void changed(bool changed);
 	void filenameChanged();
 	void changed();
+	void cursorPositionChanged(int line, int col);
 
 private slots:
 	void slotTextChanged();
+	void slotCursorPositionChanged();
 
 public slots:
 	void save();

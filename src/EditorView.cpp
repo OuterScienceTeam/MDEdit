@@ -46,6 +46,7 @@ EditorView::EditorView(QString filename)
 
 
 	connect(editor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
+	connect(editor, SIGNAL(cursorPositionChanged()), this, SLOT(slotCursorPositionChanged()));
 }
 
 
@@ -136,6 +137,12 @@ bool EditorView::isChanged() const
 }
 
 
+int EditorView::length() const
+{
+	return editor->toPlainText().length();
+}
+
+
 void EditorView::slotTextChanged()
 {
 	if(!_changed)
@@ -145,6 +152,12 @@ void EditorView::slotTextChanged()
 	}
 
 	emit changed();
+}
+
+
+void EditorView::slotCursorPositionChanged()
+{
+	emit cursorPositionChanged(editor->textCursor().blockNumber(), editor->textCursor().columnNumber());
 }
 
 

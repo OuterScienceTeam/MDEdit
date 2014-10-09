@@ -10,9 +10,6 @@ MDEdit::MDEdit(QWidget *parent) :
 	QMainWindow(parent),
 	current(0)
 {
-	statusbar = new QStatusBar(this);
-	this->setStatusBar(statusbar);
-
 	central = new QWidget(this);
 	QVBoxLayout* layout = new QVBoxLayout(central);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -46,6 +43,7 @@ MDEdit::MDEdit(QWidget *parent) :
 
 
 	setupToolbar();
+	setupStatusbar();
 
 
 	newTab();
@@ -120,6 +118,7 @@ void MDEdit::_currentTabChanged(int index)
 		disconnect(this, SLOT(_tab_changed(bool)));
 		disconnect(this, SLOT(_tab_filenameChanged()));
 		disconnect(this, SLOT(_tab_changed()));
+		disconnect(this, SLOT(_tab_cursorPositionChanged(int, int)));
 		disconnect(current, SLOT(save()));
 		disconnect(current, SLOT(saveAs()));
 	}
@@ -140,6 +139,7 @@ void MDEdit::_currentTabChanged(int index)
 	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
 	connect(tab, SIGNAL(filenameChanged()), this, SLOT(_tab_filenameChanged()));
 	connect(tab, SIGNAL(changed()), this, SLOT(_tab_changed()));
+	connect(tab, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(_tab_cursorPositionChanged(int, int)));
 	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
 	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
 	current = tab;
@@ -170,8 +170,14 @@ void MDEdit::_tab_changed()
 	{
 		htmlPreview->setHtml(current->getHtml());
 	}
+
+	updateLengthLabel(current->length());
 }
 
+void MDEdit::_tab_cursorPositionChanged(int line, int col)
+{
+	updatePositionLabel(line, col);
+}
 
 void MDEdit::newTab(const QString& filename)
 {
@@ -255,4 +261,28 @@ void MDEdit::setupToolbar()
 	toolbar->addAction("Export HTML", this, SLOT(exportHtml()));
 
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
+}
+
+void MDEdit::setupStatusbar()
+{
+	statusbar = new QStatusBar(this);
+	this->setStatusBar(statusbar);
+	lengthLabel = new QLabel(this);
+	lengthLabel->setFont(QFont("DejaVu Sans Mono", 8));
+	statusbar->addWidget(lengthLabel, 1);
+	positionLabel = new QLabel(this);
+	positionLabel->setFont(QFont("DejaVu Sans Mono", 8));
+	statusbar->addWidget(positionLabel, 1);
+	updateLengthLabel(0);
+	updatePositionLabel(0, 0);
+}
+
+void MDEdit::updateLengthLabel(int length)
+{
+	lengthLabel->setText(QString("Length: %1").arg(length));
+}
+
+void MDEdit::updatePositionLabel(int line, int col)
+{
+	positionLabel->setText(QString("Line: %1, Col: %2").arg(line).arg(col));
 }

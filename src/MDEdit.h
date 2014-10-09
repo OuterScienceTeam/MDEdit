@@ -9,6 +9,7 @@
 #include <QMap>
 #include <QAction>
 #include <QTextBrowser>
+#include <QLabel>
 
 #include "EditorView.h"
 #include "ThinSplitter.h"
@@ -23,6 +24,8 @@ private:
 	QAction* saveAsAction;
 
 	QStatusBar* statusbar;
+	QLabel* lengthLabel;
+	QLabel* positionLabel;
 
 	QWidget* central;
 	QMap<QString, EditorView*> tabs;
@@ -34,7 +37,10 @@ private:
 	QTextBrowser* htmlPreview;
 
 	void setupToolbar();
+	void setupStatusbar();
 	void updateUI();
+	inline void updateLengthLabel(int length);
+	inline void updatePositionLabel(int line, int col);
 
 public:
 	MDEdit(QWidget *parent = 0);
@@ -50,6 +56,7 @@ private slots:
 	void _tab_changed(bool);
 	void _tab_filenameChanged();
 	void _tab_changed();
+	void _tab_cursorPositionChanged(int line, int col);
 };
 
 #endif // MDEDIT_H
