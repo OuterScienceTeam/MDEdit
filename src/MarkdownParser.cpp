@@ -26,36 +26,36 @@ QString parseMarkdownPage(QString markdown)
 	mkd_css(document, &css);
 	mkd_document(document, &contents);
 
-	QString page("<!Doctype html>\r\n"
-				 "<html>\r\n"
-				 "<head>\r\n"
-				 "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\"/>");
+	QString page("<!Doctype html>\n"
+				 "<html>\n"
+				 "<head>\n"
+				 "\t<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\"/>\n");
 	if(date)
 	{
 		page.append("\t<meta http-equiv=\"Date\" content=\"");
 		page.append(date);
-		page.append("\"/>\r\n");
+		page.append("\"/>\n");
 	}
 	if(title)
 	{
 		page.append("\t<title>");
 		page.append(title);
-		page.append("</title>\r\n");
+		page.append("</title>\n");
 	}
 	if(author)
 	{
 		page.append("\t<meta name=\"author\" content=\"");
 		page.append(author);
-		page.append("\" />\r\n");
+		page.append("\" />\n");
 	}
 	if(css)
 	{
-		page.append(css).append("\r\n");
+		page.append(css).append("\n");
 	}
-	page.append("</head>\r\n");
-	page.append("<body>\r\n");
+	page.append("</head>\n");
+	page.append("<body>\n");
 	page.append(contents);
-	page.append("\r\n</body>\r\n</html>");
+	page.append("\n</body>\n</html>");
 
 	mkd_cleanup(document);
 
