@@ -198,6 +198,12 @@ void MDEdit::newTab(const QString& filename)
 	}
 
 	EditorView* newFile = new EditorView(filename);
+
+	// Automatically close the only empty tab
+	//  if a new tab with a proper file is opened.
+	bool oldTabToClose = tabs.count() == 1 && tabs.first()->isVirtual()
+			&& !tabs.first()->isChanged() && !newFile->isVirtual();
+
 	tabBar->blockSignals(true);
 	int index = tabBar->addTab(newFile->tabLabel());
 	tabBar->setTabData(index, QVariant(newFile->fullFilename()));
@@ -206,6 +212,11 @@ void MDEdit::newTab(const QString& filename)
 	tabStack->addWidget(newFile);
 	tabBar->blockSignals(false);
 	emit tabBar->currentChanged(index);
+
+	if(oldTabToClose)
+	{
+		_tabCloseRequested(0);
+	}
 }
 
 
