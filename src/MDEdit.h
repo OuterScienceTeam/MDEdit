@@ -36,8 +36,8 @@ private:
 	ThinSplitter* splitter;
 	QTextBrowser* htmlPreview;
 
-	void setupToolbar();
-	void setupStatusbar();
+	inline void setupToolbar();
+	inline void setupStatusbar();
 	void updateUI();
 	inline void updateLengthLabel(int length);
 	inline void updatePositionLabel(int line, int col);
