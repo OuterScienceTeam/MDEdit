@@ -100,7 +100,7 @@ void EditorView::exportHtml()
 		return;
 
 	QFile file(filename);
-	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+	if (!file.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
 		return;

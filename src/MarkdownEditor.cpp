@@ -65,7 +65,7 @@ bool MarkdownEditor::load(const QString& filename)
 bool MarkdownEditor::save(const QString& filename)
 {
 	QFile file(filename);
-	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+	if (!file.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::critical(this->window(), "Error opening file", "File \"" + filename + "\" could not be opened for writing. Please check whether you have write permission to the file.");
 		return false;
@@ -75,6 +75,7 @@ bool MarkdownEditor::save(const QString& filename)
 	::toPlainText(contents);
 
 	QTextStream output(&file);
+	output.setGenerateByteOrderMark(false);
 	output.setCodec("UTF-8");
 	output << contents;
 	file.close();
