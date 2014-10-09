@@ -5,6 +5,7 @@
 #include <QFileInfo>
 
 #include "MarkdownEditor.h"
+#include "LineNumberWidget.h"
 
 class EditorView : public QWidget
 {
@@ -17,6 +18,7 @@ private:
 	bool _changed;
 
 	MarkdownEditor* editor;
+	LineNumberWidget* lineNumberWidget;
 
 public:
 	EditorView(QString filename);

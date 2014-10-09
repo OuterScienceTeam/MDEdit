@@ -5,6 +5,9 @@
 #include <QContextMenuEvent>
 #include <QPlainTextEdit>
 
+
+class LineNumberWidget;
+
 class MarkdownEditor : public QPlainTextEdit
 {
 	Q_OBJECT
@@ -20,6 +23,8 @@ public:
 
 protected:
 	void contextMenuEvent(QContextMenuEvent* event);
+
+	friend LineNumberWidget;
 };
 
 #endif // MARKDOWNEDITOR_H

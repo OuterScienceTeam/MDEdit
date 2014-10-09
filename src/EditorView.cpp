@@ -19,6 +19,10 @@ EditorView::EditorView(QString filename)
 	layout->setSpacing(0);
 
 	editor = new MarkdownEditor(QFont("DejaVu Sans Mono"), this);
+
+	lineNumberWidget = new LineNumberWidget(editor, this);
+
+	layout->addWidget(lineNumberWidget);
 	layout->addWidget(editor);
 
 	this->setLayout(layout);
