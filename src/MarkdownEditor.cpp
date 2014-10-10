@@ -9,28 +9,6 @@
 #include "MarkdownParser.h"
 
 
-static void toPlainText(QString& text)
-{
-	QChar* current = text.data();
-	QChar* end = text.data() + text.size();
-	for(; current != end; ++current)
-	{
-		switch(current->unicode())
-		{
-			case 0xfdd0: // QTextBeginningOfFrame
-			case 0xfdd1: // QTextEndOfFrame
-			case QChar::ParagraphSeparator:
-			case QChar::LineSeparator:
-				*current = QLatin1Char('\n');
-				break;
-
-			default:
-				break;
-		}
-	}
-}
-
-
 MarkdownEditor::MarkdownEditor(QFont font, QWidget *parent)
 	: QPlainTextEdit(parent)
 {
@@ -71,13 +49,10 @@ bool MarkdownEditor::save(const QString& filename)
 		return false;
 	}
 
-	QString contents = this->toPlainText();
-	::toPlainText(contents);
-
 	QTextStream output(&file);
 	output.setGenerateByteOrderMark(false);
 	output.setCodec("UTF-8");
-	output << contents;
+	output << toPlainText();
 	file.close();
 
 	return true;
@@ -86,9 +61,7 @@ bool MarkdownEditor::save(const QString& filename)
 
 QString MarkdownEditor::getHtml()
 {
-	QString markdown = toPlainText();
-	::toPlainText(markdown);
-	return parseMarkdownPage(markdown);
+	return parseMarkdownPage(toPlainText());
 }
 
 
