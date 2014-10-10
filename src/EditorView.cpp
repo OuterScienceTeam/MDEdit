@@ -1,10 +1,13 @@
 #include "EditorView.h"
 
 #include <QFileDialog>
+#include <QFile>
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QTextStream>
+
+#include "MarkdownParser.h"
 
 
 int EditorView::automatic_name = 1;
@@ -38,7 +41,7 @@ EditorView::EditorView(QString filename)
 		_file.makeAbsolute();
 		if(_file.exists())
 		{
-			editor->load(_file.absoluteFilePath());
+			readFile();
 		}
 	}
 	editor->document()->setModified(false);
@@ -65,7 +68,7 @@ void EditorView::save()
 		return;
 	}
 
-	if(!editor->save(_file.absoluteFilePath()))
+	if(!writeFile())
 		return;
 
 	editor->document()->setModified(false);
@@ -81,7 +84,7 @@ void EditorView::saveAs()
 	_file.setFile(filename);
 	_file.makeAbsolute();
 
-	if(!editor->save(_file.absoluteFilePath()))
+	if(!writeFile())
 		return;
 
 	editor->document()->setModified(false);
@@ -107,7 +110,7 @@ void EditorView::exportHtml()
 
 	QTextStream output(&file);
 	output.setCodec("UTF-8");
-	output << editor->getHtml();
+	output << getHtml();
 	file.close();
 }
 
@@ -162,11 +165,48 @@ void EditorView::slotCursorPositionChanged()
 
 QString EditorView::getHtml() const
 {
-	return editor->getHtml();
+	return parseMarkdownPage(editor->toPlainText());
 }
 
 
 QString EditorView::tabLabel() const
 {
 	return _file.fileName() + (isModified() ? " *" : "");
+}
+
+
+bool EditorView::readFile()
+{
+	QFile file(_file.absoluteFilePath());
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + file.fileName() + "\" could not be opened for reading. Please check whether you have read permission to the file.");
+		return false;
+	}
+
+	QTextStream input(&file);
+
+	editor->setPlainText(input.readAll());
+
+	file.close();
+
+	return true;
+}
+
+
+bool EditorView::writeFile()
+{
+	QFile file(_file.absoluteFilePath());
+	if (!file.open(QIODevice::WriteOnly))
+	{
+		QMessageBox::critical(this->window(), "Error opening file", "File \"" + file.fileName() + "\" could not be opened for writing. Please check whether you have write permission to the file.");
+		return false;
+	}
+
+	QTextStream output(&file);
+	output.setGenerateByteOrderMark(false);
+	output.setCodec("UTF-8");
+	output << editor->toPlainText();
+	file.close();
+	return true;
 }

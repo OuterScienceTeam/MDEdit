@@ -19,6 +19,9 @@ private:
 	MarkdownEditor* editor;
 	LineNumberWidget* lineNumberWidget;
 
+	bool readFile();
+	bool writeFile();
+
 public:
 	EditorView(QString filename);
 	~EditorView();
