@@ -12,8 +12,6 @@ int EditorView::automatic_name = 1;
 
 EditorView::EditorView(QString filename)
 {
-	_changed = false;
-
 	QHBoxLayout* layout = new QHBoxLayout(this);
 	layout->setMargin(0);
 	layout->setSpacing(0);
@@ -43,10 +41,12 @@ EditorView::EditorView(QString filename)
 			editor->load(_file.absoluteFilePath());
 		}
 	}
+	editor->document()->setModified(false);
 
 
 	connect(editor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
 	connect(editor, SIGNAL(cursorPositionChanged()), this, SLOT(slotCursorPositionChanged()));
+	connect(editor->document(), SIGNAL(modificationChanged(bool)), this, SLOT(slotModificationChanged(bool)));
 }
 
 
@@ -61,11 +61,7 @@ void EditorView::save()
 	if(!editor->save(_file.absoluteFilePath()))
 		return;
 
-	if(_changed)
-	{
-		_changed = false;
-		emit changed(false);
-	}
+	editor->document()->setModified(false);
 }
 
 
@@ -81,11 +77,7 @@ void EditorView::saveAs()
 	if(!editor->save(_file.absoluteFilePath()))
 		return;
 
-	if(_changed || _virtual)
-	{
-		_changed = false;
-		emit changed(false);
-	}
+	editor->document()->setModified(false);
 
 	_virtual = false;
 
@@ -131,9 +123,9 @@ bool EditorView::isVirtual() const
 }
 
 
-bool EditorView::isChanged() const
+bool EditorView::isModified() const
 {
-	return _changed;
+	return editor->document()->isModified();
 }
 
 
@@ -143,14 +135,14 @@ int EditorView::length() const
 }
 
 
+void EditorView::slotModificationChanged(bool modified)
+{
+	emit modificationChanged(modified);
+}
+
+
 void EditorView::slotTextChanged()
 {
-	if(!_changed)
-	{
-		_changed = true;
-		emit changed(true);
-	}
-
 	emit changed();
 }
 
@@ -169,5 +161,5 @@ QString EditorView::getHtml() const
 
 QString EditorView::tabLabel() const
 {
-	return _file.fileName() + ((_changed) ? " *" : "");
+	return _file.fileName() + (isModified() ? " *" : "");
 }

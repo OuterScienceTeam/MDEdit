@@ -71,7 +71,7 @@ void MDEdit::_tabCloseRequested(int index)
 
 	qDebug() << index << tab->filename();
 
-	if(tab->isChanged())
+	if(tab->isModified())
 	{
 		QMessageBox dialog(this);
 		dialog.setModal(false);
@@ -85,7 +85,7 @@ void MDEdit::_tabCloseRequested(int index)
 		{
 			case QMessageBox::Save:
 				tab->save();
-				if(tab->isChanged())
+				if(tab->isModified())
 				{
 					qDebug() << index << "save failed";
 					return;
@@ -115,7 +115,7 @@ void MDEdit::_currentTabChanged(int index)
 	// disconnect
 	if(current)
 	{
-		disconnect(this, SLOT(_tab_changed(bool)));
+		disconnect(this, SLOT(_tab_modificationChanged(bool)));
 		disconnect(this, SLOT(_tab_filenameChanged()));
 		disconnect(this, SLOT(_tab_changed()));
 		disconnect(this, SLOT(_tab_cursorPositionChanged(int, int)));
@@ -136,7 +136,7 @@ void MDEdit::_currentTabChanged(int index)
 	tabStack->setCurrentWidget(tab);
 
 	// reconnect
-	connect(tab, SIGNAL(changed(bool)), this, SLOT(_tab_changed(bool)));
+	connect(tab, SIGNAL(modificationChanged(bool)), this, SLOT(_tab_modificationChanged(bool)));
 	connect(tab, SIGNAL(filenameChanged()), this, SLOT(_tab_filenameChanged()));
 	connect(tab, SIGNAL(changed()), this, SLOT(_tab_changed()));
 	connect(tab, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(_tab_cursorPositionChanged(int, int)));
@@ -148,9 +148,11 @@ void MDEdit::_currentTabChanged(int index)
 }
 
 
-void MDEdit::_tab_changed(bool /*changed*/)
+void MDEdit::_tab_modificationChanged(bool changed)
 {
-	updateUI();
+	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
+
+	saveAction->setEnabled(changed);
 }
 
 
@@ -159,8 +161,6 @@ void MDEdit::_tab_filenameChanged()
 	tabs.remove(tabs.key(current));
 	tabs.insert(current->fullFilename(), current);
 	tabBar->setTabData(tabBar->currentIndex(), current->fullFilename());
-
-	updateUI();
 }
 
 
@@ -202,7 +202,7 @@ void MDEdit::newTab(const QString& filename)
 	// Automatically close the only empty tab
 	//  if a new tab with a proper file is opened.
 	bool oldTabToClose = tabs.count() == 1 && tabs.first()->isVirtual()
-			&& !tabs.first()->isChanged() && !newFile->isVirtual();
+			&& !tabs.first()->isModified() && !newFile->isVirtual();
 
 	tabBar->blockSignals(true);
 	int index = tabBar->addTab(newFile->tabLabel());
@@ -233,14 +233,6 @@ void MDEdit::openFile()
 void MDEdit::exportHtml()
 {
 	current->exportHtml();
-}
-
-
-void MDEdit::updateUI()
-{
-	tabBar->setTabText(tabBar->currentIndex(), current->tabLabel());
-
-	saveAction->setEnabled(current->isChanged());
 }
 
 

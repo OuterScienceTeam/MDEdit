@@ -15,7 +15,6 @@ private:
 
 	QFileInfo _file;
 	bool _virtual;
-	bool _changed;
 
 	MarkdownEditor* editor;
 	LineNumberWidget* lineNumberWidget;
@@ -26,7 +25,7 @@ public:
 	QString filename() const;
 	QString fullFilename() const;
 	bool isVirtual() const;
-	bool isChanged() const;
+	bool isModified() const;
 	int length() const;
 
 	QString tabLabel() const;
@@ -34,12 +33,13 @@ public:
 	QString getHtml() const;
 
 signals:
-	void changed(bool changed);
+	void modificationChanged(bool changed);
 	void filenameChanged();
 	void changed();
 	void cursorPositionChanged(int line, int col);
 
 private slots:
+	void slotModificationChanged(bool modified);
 	void slotTextChanged();
 	void slotCursorPositionChanged();
 

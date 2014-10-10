@@ -38,7 +38,6 @@ private:
 
 	inline void setupToolbar();
 	inline void setupStatusbar();
-	void updateUI();
 	inline void updateLengthLabel(int length);
 	inline void updatePositionLabel(int line, int col);
 
@@ -53,7 +52,7 @@ private slots:
 
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);
-	void _tab_changed(bool);
+	void _tab_modificationChanged(bool);
 	void _tab_filenameChanged();
 	void _tab_changed();
 	void _tab_cursorPositionChanged(int line, int col);
