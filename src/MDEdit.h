@@ -42,6 +42,7 @@ private:
 	inline void setupStatusbar();
 	inline void updateLengthLabel(int length);
 	inline void updatePositionLabel(int line, int col);
+	inline void updateToolbar();
 
 public:
 	MDEdit(QWidget *parent = 0);

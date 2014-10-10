@@ -152,8 +152,7 @@ void MDEdit::_currentTabChanged(int index)
 	connect(undoAction, SIGNAL(triggered()), tab, SLOT(undo()));
 	current = tab;
 
-	_tab_redoAvailable(current->isRedoAvailable());
-	_tab_undoAvailable(current->isUndoAvailable());
+	updateToolbar();
 
 	_tab_changed();
 }
@@ -315,4 +314,11 @@ void MDEdit::updateLengthLabel(int length)
 void MDEdit::updatePositionLabel(int line, int col)
 {
 	positionLabel->setText(QString("Line: %1, Col: %2").arg(line).arg(col));
+}
+
+void MDEdit::updateToolbar()
+{
+	saveAction->setEnabled(current->isModified());
+	_tab_redoAvailable(current->isRedoAvailable());
+	_tab_undoAvailable(current->isUndoAvailable());
 }
