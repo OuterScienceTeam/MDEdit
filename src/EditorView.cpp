@@ -50,6 +50,13 @@ EditorView::EditorView(QString filename)
 }
 
 
+EditorView::~EditorView()
+{
+	delete editor;
+	delete lineNumberWidget;
+}
+
+
 void EditorView::save()
 {
 	if(_virtual)

@@ -21,6 +21,7 @@ private:
 
 public:
 	EditorView(QString filename);
+	~EditorView();
 
 	QString filename() const;
 	QString fullFilename() const;
