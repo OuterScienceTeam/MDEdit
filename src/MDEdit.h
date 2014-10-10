@@ -48,8 +48,10 @@ public:
 	MDEdit(QWidget *parent = 0);
 	~MDEdit();
 
-private slots:
+public slots:
 	void newTab(const QString& filename = QString());
+
+private slots:
 	void openFile();
 	void exportHtml();
 
