@@ -294,6 +294,14 @@ void MDEdit::setupToolbar()
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 }
 
+void MDEdit::updateToolbar()
+{
+	saveAction->setEnabled(current->isModified());
+	_tab_redoAvailable(current->isRedoAvailable());
+	_tab_undoAvailable(current->isUndoAvailable());
+}
+
+
 void MDEdit::setupStatusbar()
 {
 	statusbar = new QStatusBar(this);
@@ -316,11 +324,4 @@ void MDEdit::updateLengthLabel(int length)
 void MDEdit::updatePositionLabel(int line, int col)
 {
 	positionLabel->setText(QString("Line: %1, Col: %2").arg(line).arg(col));
-}
-
-void MDEdit::updateToolbar()
-{
-	saveAction->setEnabled(current->isModified());
-	_tab_redoAvailable(current->isRedoAvailable());
-	_tab_undoAvailable(current->isUndoAvailable());
 }

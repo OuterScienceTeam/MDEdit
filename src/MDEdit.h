@@ -39,10 +39,10 @@ private:
 	QTextBrowser* htmlPreview;
 
 	inline void setupToolbar();
+	inline void updateToolbar();
 	inline void setupStatusbar();
 	inline void updateLengthLabel(int length);
 	inline void updatePositionLabel(int line, int col);
-	inline void updateToolbar();
 
 public:
 	MDEdit(QWidget *parent = 0);
