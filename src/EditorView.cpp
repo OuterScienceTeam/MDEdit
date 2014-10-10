@@ -50,6 +50,8 @@ EditorView::EditorView(QString filename)
 	connect(editor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
 	connect(editor, SIGNAL(cursorPositionChanged()), this, SLOT(slotCursorPositionChanged()));
 	connect(editor->document(), SIGNAL(modificationChanged(bool)), this, SLOT(slotModificationChanged(bool)));
+	connect(editor->document(), SIGNAL(undoAvailable(bool)), this, SLOT(slotUndoAvailable(bool)));
+	connect(editor->document(), SIGNAL(redoAvailable(bool)), this, SLOT(slotRedoAvailable(bool)));
 }
 
 
@@ -115,6 +117,18 @@ void EditorView::exportHtml()
 }
 
 
+void EditorView::undo()
+{
+	editor->document()->undo();
+}
+
+
+void EditorView::redo()
+{
+	editor->document()->redo();
+}
+
+
 QString EditorView::filename() const
 {
 	return _file.fileName();
@@ -145,6 +159,18 @@ int EditorView::length() const
 }
 
 
+bool EditorView::isUndoAvailable() const
+{
+	return editor->document()->isUndoAvailable();
+}
+
+
+bool EditorView::isRedoAvailable() const
+{
+	return editor->document()->isRedoAvailable();
+}
+
+
 void EditorView::slotModificationChanged(bool modified)
 {
 	emit modificationChanged(modified);
@@ -160,6 +186,18 @@ void EditorView::slotTextChanged()
 void EditorView::slotCursorPositionChanged()
 {
 	emit cursorPositionChanged(editor->textCursor().blockNumber(), editor->textCursor().columnNumber());
+}
+
+
+void EditorView::slotRedoAvailable(bool available)
+{
+	emit redoAvailable(available);
+}
+
+
+void EditorView::slotUndoAvailable(bool available)
+{
+	emit undoAvailable(available);
 }
 
 

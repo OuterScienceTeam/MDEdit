@@ -22,6 +22,8 @@ private:
 	QAction* saveAction;
 	QAction* loadAction;
 	QAction* saveAsAction;
+	QAction* redoAction;
+	QAction* undoAction;
 
 	QStatusBar* statusbar;
 	QLabel* lengthLabel;
@@ -56,6 +58,8 @@ private slots:
 	void _tab_filenameChanged();
 	void _tab_changed();
 	void _tab_cursorPositionChanged(int line, int col);
+	void _tab_redoAvailable(bool);
+	void _tab_undoAvailable(bool);
 };
 
 #endif // MDEDIT_H

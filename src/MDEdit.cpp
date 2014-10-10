@@ -119,8 +119,12 @@ void MDEdit::_currentTabChanged(int index)
 		disconnect(this, SLOT(_tab_filenameChanged()));
 		disconnect(this, SLOT(_tab_changed()));
 		disconnect(this, SLOT(_tab_cursorPositionChanged(int, int)));
+		disconnect(this, SLOT(_tab_redoAvailable(bool)));
+		disconnect(this, SLOT(_tab_undoAvailable(bool)));
 		disconnect(current, SLOT(save()));
 		disconnect(current, SLOT(saveAs()));
+		disconnect(current, SLOT(redo()));
+		disconnect(current, SLOT(undo()));
 	}
 
 	if(index == -1)
@@ -140,9 +144,16 @@ void MDEdit::_currentTabChanged(int index)
 	connect(tab, SIGNAL(filenameChanged()), this, SLOT(_tab_filenameChanged()));
 	connect(tab, SIGNAL(changed()), this, SLOT(_tab_changed()));
 	connect(tab, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(_tab_cursorPositionChanged(int, int)));
+	connect(tab, SIGNAL(redoAvailable(bool)), this, SLOT(_tab_redoAvailable(bool)));
+	connect(tab, SIGNAL(undoAvailable(bool)), this, SLOT(_tab_undoAvailable(bool)));
 	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
 	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
+	connect(redoAction, SIGNAL(triggered()), tab, SLOT(redo()));
+	connect(undoAction, SIGNAL(triggered()), tab, SLOT(undo()));
 	current = tab;
+
+	_tab_redoAvailable(current->isRedoAvailable());
+	_tab_undoAvailable(current->isUndoAvailable());
 
 	_tab_changed();
 }
@@ -178,6 +189,17 @@ void MDEdit::_tab_cursorPositionChanged(int line, int col)
 {
 	updatePositionLabel(line, col);
 }
+
+void MDEdit::_tab_redoAvailable(bool available)
+{
+	redoAction->setEnabled(available);
+}
+
+void MDEdit::_tab_undoAvailable(bool available)
+{
+	undoAction->setEnabled(available);
+}
+
 
 void MDEdit::newTab(const QString& filename)
 {
@@ -251,6 +273,11 @@ void MDEdit::setupToolbar()
 
 	saveAsAction = toolbar->addAction("Save As");
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
+
+	toolbar->addSeparator();
+
+	undoAction = toolbar->addAction("Undo");
+	redoAction = toolbar->addAction("Redo");
 
 	toolbar->addSeparator();
 

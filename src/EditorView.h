@@ -36,21 +36,30 @@ public:
 
 	QString getHtml() const;
 
+	bool isUndoAvailable() const;
+	bool isRedoAvailable() const;
+
 signals:
 	void modificationChanged(bool changed);
 	void filenameChanged();
 	void changed();
 	void cursorPositionChanged(int line, int col);
+	void undoAvailable(bool available);
+	void redoAvailable(bool available);
 
 private slots:
 	void slotModificationChanged(bool modified);
 	void slotTextChanged();
 	void slotCursorPositionChanged();
+	void slotUndoAvailable(bool available);
+	void slotRedoAvailable(bool available);
 
 public slots:
 	void save();
 	void saveAs();
 	void exportHtml();
+	void undo();
+	void redo();
 };
 
 #endif // EDITORVIEW_H
