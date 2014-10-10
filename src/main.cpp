@@ -5,6 +5,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	a.setApplicationName("MDEdit");
+	a.setApplicationVersion("0.2-alpha");
 	a.setOrganizationName("OuterScience");
 
 	MDEdit window;
