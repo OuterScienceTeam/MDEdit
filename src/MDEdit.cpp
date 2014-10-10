@@ -153,6 +153,8 @@ void MDEdit::_currentTabChanged(int index)
 	current = tab;
 
 	updateToolbar();
+	updateLengthLabel(current->length());
+	updatePositionLabel(current->cursorLine(), current->cursorCol());
 
 	_tab_changed();
 }

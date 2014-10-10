@@ -39,6 +39,9 @@ public:
 	bool isUndoAvailable() const;
 	bool isRedoAvailable() const;
 
+	int cursorLine() const;
+	int cursorCol() const;
+
 signals:
 	void modificationChanged(bool changed);
 	void filenameChanged();

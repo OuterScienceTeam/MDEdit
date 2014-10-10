@@ -171,6 +171,18 @@ bool EditorView::isRedoAvailable() const
 }
 
 
+int EditorView::cursorLine() const
+{
+	return editor->textCursor().blockNumber();
+}
+
+
+int EditorView::cursorCol() const
+{
+	return editor->textCursor().columnNumber();
+}
+
+
 void EditorView::slotModificationChanged(bool modified)
 {
 	emit modificationChanged(modified);
