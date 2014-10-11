@@ -1,9 +1,9 @@
 # MDEdit
-_(subject name to change)_ *< development version >*
+_(subject name to change)_ *< 0.3-beta >*
 
 ---
 
 MDEdit is a Markdown editor written in C++ using Qt toolkit.
-It will use [Discount markdown parser](https://github.com/Orc/discount) to parse markdown.
+It uses [Discount markdown parser](https://github.com/Orc/discount) to parse markdown.
 
-MDEdit is currently in development stage and dangerous to use.
+MDEdit is currently in beta stage and use isn't recommended.
