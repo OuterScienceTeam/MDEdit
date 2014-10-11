@@ -66,11 +66,10 @@ MDEdit::~MDEdit()
 void MDEdit::closeEvent(QCloseEvent *event)
 {
 	bool cancel = false;
-	QMap<QString, EditorView*>::iterator it = tabs.begin();
-	QMap<QString, EditorView*>::iterator end = tabs.end();
-	for( ; it != end && !cancel; ++it)
+	for(int i = 0; i < tabBar->count(); i++)
 	{
-		EditorView* tab = it.value();
+		tabBar->setCurrentIndex(i);
+		EditorView* tab = tabs.value(tabBar->tabData(i).toString());
 		if(tab->isModified())
 		{
 			QMessageBox dialog(this);
