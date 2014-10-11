@@ -63,6 +63,51 @@ MDEdit::~MDEdit()
 }
 
 
+void MDEdit::closeEvent(QCloseEvent *event)
+{
+	bool cancel = false;
+	QMap<QString, EditorView*>::iterator it = tabs.begin();
+	QMap<QString, EditorView*>::iterator end = tabs.end();
+	for( ; it != end && !cancel; ++it)
+	{
+		EditorView* tab = it.value();
+		if(tab->isModified())
+		{
+			QMessageBox dialog(this);
+			dialog.setModal(false);
+			dialog.setIcon(QMessageBox::Question);
+			dialog.addButton(QMessageBox::Save);
+			dialog.addButton(QMessageBox::Cancel);
+			dialog.addButton(QMessageBox::Discard);
+			dialog.setDefaultButton(QMessageBox::Cancel);
+			dialog.setText("File \"" + tab->filename() + "\" was modified.\nDo you wish to save it?");
+			switch(dialog.exec())
+			{
+				case QMessageBox::Save:
+					tab->save();
+					if(tab->isModified())
+					{
+						cancel = true;
+					}
+					break;
+
+				case QMessageBox::Cancel:
+					cancel = true;
+					break;
+
+				case QMessageBox::Discard:
+					break;
+			}
+		}
+	}
+
+	if(cancel)
+	{
+		event->setAccepted(false);
+	}
+}
+
+
 void MDEdit::_tabCloseRequested(int index)
 {
 	QString key = tabBar->tabData(index).toString();

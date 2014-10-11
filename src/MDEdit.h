@@ -10,6 +10,7 @@
 #include <QAction>
 #include <QTextBrowser>
 #include <QLabel>
+#include <QCloseEvent>
 
 #include "EditorView.h"
 #include "ThinSplitter.h"
@@ -43,6 +44,9 @@ private:
 	inline void setupStatusbar();
 	inline void updateLengthLabel(int length);
 	inline void updatePositionLabel(int line, int col);
+
+protected:
+	void closeEvent(QCloseEvent* event);
 
 public:
 	MDEdit(QWidget *parent = 0);
