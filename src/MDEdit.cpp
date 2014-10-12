@@ -19,6 +19,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	tabBar = new QTabBar(this);
 	tabBar->setTabsClosable(true);
 	tabBar->setMovable(true);
+	tabBar->setExpanding(false);
 	layout->addWidget(tabBar);
 
 	connect(tabBar, SIGNAL(tabCloseRequested(int)), this, SLOT(_tabCloseRequested(int)));
