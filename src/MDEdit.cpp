@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QVBoxLayout>
+#include <QMimeData>
 
 
 MDEdit::MDEdit(QWidget *parent) :
@@ -47,6 +48,8 @@ MDEdit::MDEdit(QWidget *parent) :
 
 
 	newTab();
+
+	setAcceptDrops(true);
 }
 
 
@@ -104,6 +107,24 @@ void MDEdit::closeEvent(QCloseEvent *event)
 	{
 		event->setAccepted(false);
 	}
+}
+
+void MDEdit::dragEnterEvent(QDragEnterEvent *event)
+{
+	if(event->mimeData()->hasUrls())
+	{
+		event->acceptProposedAction();
+	}
+}
+
+void MDEdit::dropEvent(QDropEvent *event)
+{
+	foreach(const QUrl& fileUrl, event->mimeData()->urls())
+	{
+		newTab(fileUrl.toLocalFile());
+	}
+
+	event->acceptProposedAction();
 }
 
 

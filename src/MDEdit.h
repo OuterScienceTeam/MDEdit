@@ -11,6 +11,8 @@
 #include <QTextBrowser>
 #include <QLabel>
 #include <QCloseEvent>
+#include <QDropEvent>
+#include <QDragEnterEvent>
 
 #include "EditorView.h"
 #include "ThinSplitter.h"
@@ -47,6 +49,8 @@ private:
 
 protected:
 	void closeEvent(QCloseEvent* event);
+	void dragEnterEvent(QDragEnterEvent* event);
+	void dropEvent(QDropEvent* event);
 
 public:
 	MDEdit(QWidget *parent = 0);
