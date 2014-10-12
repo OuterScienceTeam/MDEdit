@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MDEdit.png</file>
+    </qresource>
+</RCC>

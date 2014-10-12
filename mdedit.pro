@@ -28,3 +28,6 @@ SOURCES += \
 	src/MarkdownParser.cpp \
 	src/ThinSplitter.cpp \
 	src/LineNumberWidget.cpp
+
+RESOURCES += \
+    data/data.qrc
