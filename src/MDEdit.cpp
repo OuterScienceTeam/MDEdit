@@ -1,6 +1,5 @@
 #include "MDEdit.h"
 
-#include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QVBoxLayout>
@@ -134,8 +133,6 @@ void MDEdit::_tabCloseRequested(int index)
 
 	EditorView* tab = tabs.value(key);
 
-	qDebug() << index << tab->filename();
-
 	if(tab->isModified())
 	{
 		QMessageBox dialog(this);
@@ -152,7 +149,6 @@ void MDEdit::_tabCloseRequested(int index)
 				tab->save();
 				if(tab->isModified())
 				{
-					qDebug() << index << "save failed";
 					return;
 				}
 				break;
@@ -175,8 +171,6 @@ void MDEdit::_tabCloseRequested(int index)
 
 void MDEdit::_currentTabChanged(int index)
 {
-	qDebug() << index << "changed";
-
 	// disconnect
 	if(current)
 	{
