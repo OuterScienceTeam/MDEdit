@@ -367,10 +367,10 @@ void MDEdit::setupStatusbar()
 	statusbar = new QStatusBar(this);
 	this->setStatusBar(statusbar);
 	lengthLabel = new QLabel(this);
-	lengthLabel->setFont(QFont("DejaVu Sans Mono", 8));
+	lengthLabel->setFont(QFont("DejaVu Serif", 8));
 	statusbar->addWidget(lengthLabel, 1);
 	positionLabel = new QLabel(this);
-	positionLabel->setFont(QFont("DejaVu Sans Mono", 8));
+	positionLabel->setFont(QFont("DejaVu Serif", 8));
 	statusbar->addWidget(positionLabel, 1);
 	updateLengthLabel(0);
 	updatePositionLabel(0, 0);
