@@ -1,3 +1,4 @@
+#include "defines.h"
 #include "MDEdit.h"
 
 #include <QMessageBox>
@@ -217,6 +218,8 @@ void MDEdit::_currentTabChanged(int index)
 	updatePositionLabel(current->cursorLine(), current->cursorCol());
 
 	_tab_changed();
+
+	updateWindowTitle();
 }
 
 
@@ -233,6 +236,8 @@ void MDEdit::_tab_filenameChanged()
 	tabs.remove(tabs.key(current));
 	tabs.insert(current->fullFilename(), current);
 	tabBar->setTabData(tabBar->currentIndex(), current->fullFilename());
+
+	updateWindowTitle();
 }
 
 
@@ -316,6 +321,12 @@ void MDEdit::openFile()
 void MDEdit::exportHtml()
 {
 	current->exportHtml();
+}
+
+
+void MDEdit::updateWindowTitle()
+{
+	setWindowTitle(current->filename() + " - " APPLICATION_NAME);
 }
 
 

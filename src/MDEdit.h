@@ -41,6 +41,7 @@ private:
 	ThinSplitter* splitter;
 	QTextBrowser* htmlPreview;
 
+	inline void updateWindowTitle();
 	inline void setupToolbar();
 	inline void updateToolbar();
 	inline void setupStatusbar();
