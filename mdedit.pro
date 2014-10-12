@@ -12,22 +12,22 @@ LIBS += -lmarkdown
 TEMPLATE = app
 
 HEADERS  += \
-	src/MDEdit.h \
-	src/MarkdownEditor.h \
-	src/EditorView.h \
-	src/MarkdownParser.h \
-	src/ThinSplitter.h \
-	src/LineNumberWidget.h \
-	src/defines.h
+	MDEdit.h \
+	MarkdownEditor.h \
+	EditorView.h \
+	MarkdownParser.h \
+	ThinSplitter.h \
+	LineNumberWidget.h \
+	defines.h
 
 SOURCES += \
-	src/main.cpp \
-	src/MDEdit.cpp \
-	src/MarkdownEditor.cpp \
-	src/EditorView.cpp \
-	src/MarkdownParser.cpp \
-	src/ThinSplitter.cpp \
-	src/LineNumberWidget.cpp
+	main.cpp \
+	MDEdit.cpp \
+	MarkdownEditor.cpp \
+	EditorView.cpp \
+	MarkdownParser.cpp \
+	ThinSplitter.cpp \
+	LineNumberWidget.cpp
 
 RESOURCES += \
-    data/data.qrc
+    data.qrc
