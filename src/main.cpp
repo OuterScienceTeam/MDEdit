@@ -1,3 +1,4 @@
+#include "defines.h"
 #include "MDEdit.h"
 #include <QApplication>
 #include <QCommandLineParser>
@@ -5,12 +6,12 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	a.setApplicationName("MDEdit");
-	a.setApplicationVersion("0.2-alpha");
-	a.setOrganizationName("OuterScience");
+	a.setApplicationName(APPLICATION_NAME);
+	a.setApplicationVersion(APPLICATION_VERSION);
+	a.setOrganizationName(ORGANISATION_NAME);
 
 	QCommandLineParser parser;
-	parser.setApplicationDescription("MDEdit - a Markdown Editor");
+	parser.setApplicationDescription(APPLICATION_DESCRIPTION);
 	parser.addHelpOption();
 	parser.addVersionOption();
 

@@ -17,7 +17,8 @@ HEADERS  += \
 	src/EditorView.h \
 	src/MarkdownParser.h \
 	src/ThinSplitter.h \
-	src/LineNumberWidget.h
+	src/LineNumberWidget.h \
+	src/defines.h
 
 SOURCES += \
 	src/main.cpp \
