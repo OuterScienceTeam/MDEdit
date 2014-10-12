@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QDebug>
 
 #include "MarkdownParser.h"
 
@@ -107,6 +108,9 @@ void EditorView::exportHtml()
 	if (!file.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
+
+		qDebug() << "Could export HTML into" << filename << file.errorString();
+
 		return;
 	}
 
@@ -114,6 +118,8 @@ void EditorView::exportHtml()
 	output.setCodec("UTF-8");
 	output << getHtml();
 	file.close();
+
+	qDebug() << "File" << _file.filePath() << "exported as HTML" << filename;
 }
 
 
@@ -231,6 +237,9 @@ bool EditorView::readFile()
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + file.fileName() + "\" could not be opened for reading. Please check whether you have read permission to the file.");
+
+		qDebug() << "Failed to read" << file.fileName() << file.errorString();
+
 		return false;
 	}
 
@@ -239,6 +248,8 @@ bool EditorView::readFile()
 	editor->setPlainText(input.readAll());
 
 	file.close();
+
+	qDebug() << "Read" << file.fileName();
 
 	return true;
 }
@@ -250,6 +261,9 @@ bool EditorView::writeFile()
 	if (!file.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::critical(this->window(), "Error opening file", "File \"" + file.fileName() + "\" could not be opened for writing. Please check whether you have write permission to the file.");
+
+		qDebug() << "Failed to save" << file.fileName() << file.errorString();
+
 		return false;
 	}
 
@@ -258,5 +272,8 @@ bool EditorView::writeFile()
 	output.setCodec("UTF-8");
 	output << editor->toPlainText();
 	file.close();
+
+	qDebug() << "Saved" << file.fileName();
+
 	return true;
 }
