@@ -80,7 +80,7 @@ void EditorView::save()
 
 void EditorView::saveAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", "", "Markdown (*.md *.markdown)");
+	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", _file.filePath(), "Markdown (*.md *.markdown)");
 	if(filename.isEmpty())
 		return;
 
