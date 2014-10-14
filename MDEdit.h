@@ -62,6 +62,10 @@ public slots:
 
 private slots:
 	void openFile();
+	void save();
+	void saveAs();
+	void undo();
+	void redo();
 
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);

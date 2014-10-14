@@ -183,10 +183,6 @@ void MDEdit::_currentTabChanged(int index)
 		disconnect(this, SLOT(_tab_cursorPositionChanged(int, int)));
 		disconnect(this, SLOT(_tab_redoAvailable(bool)));
 		disconnect(this, SLOT(_tab_undoAvailable(bool)));
-		disconnect(current, SLOT(save()));
-		disconnect(current, SLOT(saveAs()));
-		disconnect(current, SLOT(redo()));
-		disconnect(current, SLOT(undo()));
 	}
 
 	if(index == -1)
@@ -208,10 +204,6 @@ void MDEdit::_currentTabChanged(int index)
 	connect(tab, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(_tab_cursorPositionChanged(int, int)));
 	connect(tab, SIGNAL(redoAvailable(bool)), this, SLOT(_tab_redoAvailable(bool)));
 	connect(tab, SIGNAL(undoAvailable(bool)), this, SLOT(_tab_undoAvailable(bool)));
-	connect(saveAction, SIGNAL(triggered()), tab, SLOT(save()));
-	connect(saveAsAction, SIGNAL(triggered()), tab, SLOT(saveAs()));
-	connect(redoAction, SIGNAL(triggered()), tab, SLOT(redo()));
-	connect(undoAction, SIGNAL(triggered()), tab, SLOT(undo()));
 	current = tab;
 
 	updateToolbar();
@@ -319,6 +311,34 @@ void MDEdit::openFile()
 }
 
 
+void MDEdit::save()
+{
+	if(current)
+		current->save();
+}
+
+
+void MDEdit::saveAs()
+{
+	if(current)
+		current->saveAs();
+}
+
+
+void MDEdit::undo()
+{
+	if(current)
+		current->undo();
+}
+
+
+void MDEdit::redo()
+{
+	if(current)
+		current->redo();
+}
+
+
 void MDEdit::updateWindowTitle()
 {
 	setWindowTitle(current->filename() + " - " APPLICATION_NAME);
@@ -334,17 +354,17 @@ void MDEdit::setupToolbar()
 
 	openAction = toolbar->addAction("Open", this, SLOT(openFile()));
 
-	saveAction = toolbar->addAction("Save");
+	saveAction = toolbar->addAction("Save", this, SLOT(save()));
 	saveAction->setDisabled(true);
 	saveAction->setShortcut(QKeySequence(QKeySequence::Save));
 
-	saveAsAction = toolbar->addAction("Save As");
+	saveAsAction = toolbar->addAction("Save As", this, SLOT(saveAs()));
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
 
 	toolbar->addSeparator();
 
-	undoAction = toolbar->addAction("Undo");
-	redoAction = toolbar->addAction("Redo");
+	undoAction = toolbar->addAction("Undo", this, SLOT(undo()));
+	redoAction = toolbar->addAction("Redo", this, SLOT(redo()));
 
 	toolbar->addSeparator();
 
