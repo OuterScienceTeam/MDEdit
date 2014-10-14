@@ -13,7 +13,7 @@ QString parseMarkdownPage(QString markdown)
 	QByteArray dataArray = markdown.toUtf8();
 	char* data = dataArray.data();
 
-	MMIOT* document = mkd_string(data, dataArray.size(), 0);
+	MMIOT* document = gfm_string(data, dataArray.size(), 0);
 
 	mkd_compile(document, 0);
 
