@@ -338,7 +338,7 @@ void MDEdit::setupToolbar()
 
 	toolbar->addAction("New", this, SLOT(newTab()));
 
-	loadAction = toolbar->addAction("Load", this, SLOT(openFile()));
+	openAction = toolbar->addAction("Open", this, SLOT(openFile()));
 
 	saveAction = toolbar->addAction("Save");
 	saveAction->setDisabled(true);

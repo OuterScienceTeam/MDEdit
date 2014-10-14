@@ -23,7 +23,7 @@ class MDEdit : public QMainWindow
 private:
 	QToolBar* toolbar;
 	QAction* saveAction;
-	QAction* loadAction;
+	QAction* openAction;
 	QAction* saveAsAction;
 	QAction* redoAction;
 	QAction* undoAction;
