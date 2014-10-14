@@ -43,6 +43,11 @@ public:
 	int cursorLine() const;
 	int cursorCol() const;
 
+	void save();
+	void saveAs();
+	void undo();
+	void redo();
+
 signals:
 	void modificationChanged(bool changed);
 	void filenameChanged();
@@ -57,12 +62,6 @@ private slots:
 	void slotCursorPositionChanged();
 	void slotUndoAvailable(bool available);
 	void slotRedoAvailable(bool available);
-
-public slots:
-	void save();
-	void saveAs();
-	void undo();
-	void redo();
 };
 
 #endif // EDITORVIEW_H
