@@ -71,7 +71,7 @@ MDEdit::~MDEdit()
 void MDEdit::closeEvent(QCloseEvent *event)
 {
 	bool cancel = false;
-	for(int i = 0; i < tabBar->count(); i++)
+	for(int i = 0; i < tabBar->count() && !cancel; i++)
 	{
 		tabBar->setCurrentIndex(i);
 		EditorView* tab = tabs.value(tabBar->tabData(i).toString());
