@@ -84,7 +84,7 @@ void MDEdit::closeEvent(QCloseEvent *event)
 			dialog.addButton(QMessageBox::Cancel);
 			dialog.addButton(QMessageBox::Discard);
 			dialog.setDefaultButton(QMessageBox::Cancel);
-			dialog.setText("File \"" + tab->filename() + "\" was modified.\nDo you wish to save it?");
+			dialog.setText("File \"" + tab->fullFilename() + "\" was modified.\nDo you wish to save it?");
 			switch(dialog.exec())
 			{
 				case QMessageBox::Save:
@@ -145,7 +145,7 @@ void MDEdit::_tabCloseRequested(int index)
 		dialog.addButton(QMessageBox::Cancel);
 		dialog.addButton(QMessageBox::Discard);
 		dialog.setDefaultButton(QMessageBox::Cancel);
-		dialog.setText("File \"" + tab->filename() + "\" was modified.\nDo you wish to save it?");
+		dialog.setText("File \"" + tab->fullFilename() + "\" was modified.\nDo you wish to save it?");
 		switch(dialog.exec())
 		{
 			case QMessageBox::Save:
