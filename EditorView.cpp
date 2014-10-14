@@ -45,7 +45,6 @@ EditorView::EditorView(QString filename)
 			readFile();
 		}
 	}
-	editor->document()->setModified(false);
 
 
 	connect(editor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
@@ -89,8 +88,6 @@ void EditorView::saveAs()
 
 	if(!writeFile())
 		return;
-
-	editor->document()->setModified(false);
 
 	_virtual = false;
 
@@ -245,7 +242,10 @@ bool EditorView::readFile()
 
 	QTextStream input(&file);
 
+	editor->blockSignals(true);
 	editor->setPlainText(input.readAll());
+	editor->document()->setModified(false);
+	editor->blockSignals(false);
 
 	file.close();
 
@@ -272,6 +272,8 @@ bool EditorView::writeFile()
 	output.setCodec("UTF-8");
 	output << editor->toPlainText();
 	file.close();
+
+	editor->document()->setModified(false);
 
 	qDebug() << "Saved" << file.fileName();
 
