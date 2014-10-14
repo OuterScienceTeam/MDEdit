@@ -18,7 +18,8 @@ HEADERS  += \
 	MarkdownParser.h \
 	ThinSplitter.h \
 	LineNumberWidget.h \
-	defines.h
+	defines.h \
+    SaveFileQuestionDialog.h
 
 SOURCES += \
 	main.cpp \
@@ -27,7 +28,8 @@ SOURCES += \
 	EditorView.cpp \
 	MarkdownParser.cpp \
 	ThinSplitter.cpp \
-	LineNumberWidget.cpp
+	LineNumberWidget.cpp \
+    SaveFileQuestionDialog.cpp
 
 RESOURCES += \
     data.qrc

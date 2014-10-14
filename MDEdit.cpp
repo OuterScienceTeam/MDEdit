@@ -1,10 +1,11 @@
 #include "defines.h"
 #include "MDEdit.h"
 
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QVBoxLayout>
 #include <QMimeData>
+
+#include "SaveFileQuestionDialog.h"
 
 
 MDEdit::MDEdit(QWidget *parent) :
@@ -73,14 +74,7 @@ void MDEdit::closeEvent(QCloseEvent *event)
 	if(!tabBar->count())
 		return;
 
-	QMessageBox dialog(this);
-	dialog.setModal(false);
-	dialog.setIcon(QMessageBox::Question);
-	dialog.addButton(QMessageBox::Save);
-	dialog.addButton(QMessageBox::Cancel);
-	dialog.addButton(QMessageBox::Discard);
-	dialog.setDefaultButton(QMessageBox::Cancel);
-	QString dialogText("File \"%1\" was modified.\nDo you wish to save it?");
+	SaveFileQuestionDialog dialog(this);
 
 	bool cancel = false;
 	for(int i = 0; i < tabBar->count() && !cancel; i++)
@@ -89,10 +83,10 @@ void MDEdit::closeEvent(QCloseEvent *event)
 		EditorView* tab = tabs.value(tabBar->tabData(i).toString());
 		if(tab->isModified())
 		{
-			dialog.setText(dialogText.arg(tab->fullFilename()));
+			dialog.setFilename(tab->fullFilename());
 			switch(dialog.exec())
 			{
-				case QMessageBox::Save:
+				case SaveFileQuestionDialog::Save:
 					tab->save();
 					if(tab->isModified())
 					{
@@ -100,11 +94,11 @@ void MDEdit::closeEvent(QCloseEvent *event)
 					}
 					break;
 
-				case QMessageBox::Cancel:
+				case SaveFileQuestionDialog::Cancel:
 					cancel = true;
 					break;
 
-				case QMessageBox::Discard:
+				case SaveFileQuestionDialog::Discard:
 					break;
 			}
 		}
@@ -143,17 +137,11 @@ void MDEdit::_tabCloseRequested(int index)
 
 	if(tab->isModified())
 	{
-		QMessageBox dialog(this);
-		dialog.setModal(false);
-		dialog.setIcon(QMessageBox::Question);
-		dialog.addButton(QMessageBox::Save);
-		dialog.addButton(QMessageBox::Cancel);
-		dialog.addButton(QMessageBox::Discard);
-		dialog.setDefaultButton(QMessageBox::Cancel);
-		dialog.setText("File \"" + tab->fullFilename() + "\" was modified.\nDo you wish to save it?");
+		SaveFileQuestionDialog dialog(this);
+		dialog.setFilename(tab->fullFilename());
 		switch(dialog.exec())
 		{
-			case QMessageBox::Save:
+			case SaveFileQuestionDialog::Save:
 				tab->save();
 				if(tab->isModified())
 				{
@@ -161,10 +149,10 @@ void MDEdit::_tabCloseRequested(int index)
 				}
 				break;
 
-			case QMessageBox::Cancel:
+			case SaveFileQuestionDialog::Cancel:
 				return;
 
-			case QMessageBox::Discard:
+			case SaveFileQuestionDialog::Discard:
 				break;
 		}
 	}
