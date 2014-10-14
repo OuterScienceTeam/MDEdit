@@ -319,12 +319,6 @@ void MDEdit::openFile()
 }
 
 
-void MDEdit::exportHtml()
-{
-	current->exportHtml();
-}
-
-
 void MDEdit::updateWindowTitle()
 {
 	setWindowTitle(current->filename() + " - " APPLICATION_NAME);
@@ -358,10 +352,6 @@ void MDEdit::setupToolbar()
 	previewAction->setCheckable(true);
 	previewAction->setChecked(true);
 	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
-
-	toolbar->addSeparator();
-
-	toolbar->addAction("Export HTML", this, SLOT(exportHtml()));
 
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 }

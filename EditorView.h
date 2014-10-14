@@ -21,6 +21,7 @@ private:
 
 	bool readFile();
 	bool writeFile();
+	bool exportHtml(const QString& filename);
 
 public:
 	EditorView(QString filename);
@@ -60,7 +61,6 @@ private slots:
 public slots:
 	void save();
 	void saveAs();
-	void exportHtml();
 	void undo();
 	void redo();
 };

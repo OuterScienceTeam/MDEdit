@@ -62,7 +62,6 @@ public slots:
 
 private slots:
 	void openFile();
-	void exportHtml();
 
 	void _tabCloseRequested(int index);
 	void _currentTabChanged(int index);

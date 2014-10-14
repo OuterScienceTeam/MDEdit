@@ -79,9 +79,15 @@ void EditorView::save()
 
 void EditorView::saveAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", _file.filePath(), "Markdown (*.md *.markdown)");
+	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", _file.filePath(), "Markdown (*.md *.markdown);;Hypertext Markup Language (*.html *.htm)");
 	if(filename.isEmpty())
 		return;
+
+	if(filename.endsWith(".html") || filename.endsWith(".htm"))
+	{
+		exportHtml(filename);
+		return;
+	}
 
 	_file.setFile(filename);
 	_file.makeAbsolute();
@@ -92,31 +98,6 @@ void EditorView::saveAs()
 	_virtual = false;
 
 	emit filenameChanged();
-}
-
-
-void EditorView::exportHtml()
-{
-	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", "", "Hypertext Markup Language file (*.html *.htm)");
-	if(filename.isEmpty())
-		return;
-
-	QFile file(filename);
-	if (!file.open(QIODevice::WriteOnly))
-	{
-		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
-
-		qDebug() << "Could export HTML into" << filename << file.errorString();
-
-		return;
-	}
-
-	QTextStream output(&file);
-	output.setCodec("UTF-8");
-	output << getHtml();
-	file.close();
-
-	qDebug() << "File" << _file.filePath() << "exported as HTML" << filename;
 }
 
 
@@ -276,6 +257,29 @@ bool EditorView::writeFile()
 	editor->document()->setModified(false);
 
 	qDebug() << "Saved" << file.fileName();
+
+	return true;
+}
+
+
+bool EditorView::exportHtml(const QString& filename)
+{
+	QFile file(filename);
+	if (!file.open(QIODevice::WriteOnly))
+	{
+		QMessageBox::critical(this->window(), "Failed to open file", "File \"" + filename + "\" could not be opened for writing.");
+
+		qDebug() << "Could export HTML into" << filename << file.errorString();
+
+		return false;
+	}
+
+	QTextStream output(&file);
+	output.setCodec("UTF-8");
+	output << getHtml();
+	file.close();
+
+	qDebug() << "File" << _file.filePath() << "exported as HTML" << filename;
 
 	return true;
 }
