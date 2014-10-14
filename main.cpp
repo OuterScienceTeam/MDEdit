@@ -5,19 +5,18 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	a.setApplicationName(APPLICATION_NAME);
-	a.setApplicationVersion(APPLICATION_VERSION);
-	a.setOrganizationName(ORGANISATION_NAME);
+	QApplication app(argc, argv);
+	app.setApplicationName(APPLICATION_NAME);
+	app.setApplicationVersion(APPLICATION_VERSION);
+	app.setOrganizationName(ORGANISATION_NAME);
 
 	QCommandLineParser parser;
 	parser.setApplicationDescription(APPLICATION_DESCRIPTION);
 	parser.addHelpOption();
 	parser.addVersionOption();
-
 	parser.addPositionalArgument("filename(s)", "name(s) of file(s) to open");
 
-	parser.process(a);
+	parser.process(app);
 
 	MDEdit window;
 	window.show();
@@ -29,5 +28,5 @@ int main(int argc, char *argv[])
 		window.newTab(arg);
 	}
 
-	return a.exec();
+	return app.exec();
 }
