@@ -25,7 +25,7 @@ void LineNumberWidget::paintEvent(QPaintEvent* /*event*/)
 
 
 	painter.setFont(_editor->font());
-	painter.setPen(QColor("#626262"));
+	painter.setBrush(palette().text());
 	painter.setRenderHint(QPainter::Antialiasing);
 
 	const QFontMetrics fm = _editor->fontMetrics();

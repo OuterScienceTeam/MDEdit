@@ -38,7 +38,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	htmlPreview = new QTextBrowser(this);
 	htmlPreview->setFrameStyle(QFrame::NoFrame);
 	htmlPreview->setFrameShadow(QFrame::Plain);
-	htmlPreview->setStyleSheet("QTextBrowser { background: #F5F5F5; }");
+	htmlPreview->setObjectName("HTMLPreview");
 	splitter->addWidget(htmlPreview);
 
 	splitter->setStretchFactor(0, 1);
@@ -380,12 +380,11 @@ void MDEdit::updateToolbar()
 void MDEdit::setupStatusbar()
 {
 	statusbar = new QStatusBar(this);
+	statusbar->setObjectName("StatusBar");
 	this->setStatusBar(statusbar);
 	lengthLabel = new QLabel(this);
-	lengthLabel->setFont(QFont("DejaVu Serif", 8));
 	statusbar->addWidget(lengthLabel, 1);
 	positionLabel = new QLabel(this);
-	positionLabel->setFont(QFont("DejaVu Serif", 8));
 	statusbar->addWidget(positionLabel, 1);
 	updateLengthLabel(0);
 	updatePositionLabel(0, 0);

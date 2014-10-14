@@ -14,7 +14,7 @@ class MarkdownEditor : public QPlainTextEdit
 private:
 
 public:
-	explicit MarkdownEditor(QFont font, QWidget *parent = 0);
+	explicit MarkdownEditor(QWidget *parent = 0);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent* event);

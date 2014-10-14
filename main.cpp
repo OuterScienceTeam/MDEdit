@@ -2,6 +2,9 @@
 #include "MDEdit.h"
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +20,18 @@ int main(int argc, char *argv[])
 	parser.addPositionalArgument("filename(s)", "name(s) of file(s) to open");
 
 	parser.process(app);
+
+
+	// load stylesheet
+	QFile* stylesheet = new QFile(":/style.css");
+	if(stylesheet->open(QFile::ReadOnly))
+	{
+		QTextStream stream(stylesheet);
+		app.setStyleSheet(app.styleSheet() + stream.readAll());
+		stylesheet->close();
+	}
+	delete stylesheet;
+
 
 	MDEdit window;
 	window.show();
