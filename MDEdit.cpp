@@ -52,7 +52,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	newTab();
 
 	setAcceptDrops(true);
-	setWindowIcon(QIcon(":/MDEdit.png"));
+	setWindowIcon(QIcon(":/mdedit_icon.png"));
 }
 
 
