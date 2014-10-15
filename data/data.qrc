@@ -4,5 +4,12 @@
         <file>mdedit_icon.png</file>
         <file>mdedit_icon_large.png</file>
         <file>about_dialog_contents.txt</file>
+        <file>icons/document-new.png</file>
+        <file>icons/document-open.png</file>
+        <file>icons/document-save.png</file>
+        <file>icons/document-save-as.png</file>
+        <file>icons/edit-redo.png</file>
+        <file>icons/edit-undo.png</file>
+        <file>icons/text-html.png</file>
     </qresource>
 </RCC>

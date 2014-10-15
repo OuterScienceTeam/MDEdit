@@ -350,14 +350,14 @@ void MDEdit::setupMenus()
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 
 	QMenu* fileMenu = menuBar->addMenu("File");
-	QAction* newAction = fileMenu->addAction("New", this, SLOT(newTab()));
-	openAction = fileMenu->addAction("Open", this, SLOT(openFile()));
+	QAction* newAction = fileMenu->addAction(QIcon(":/icons/document-new.png"), "New", this, SLOT(newTab()));
+	openAction = fileMenu->addAction(QIcon(":/icons/document-open.png"), "Open", this, SLOT(openFile()));
 
-	saveAction = fileMenu->addAction("Save", this, SLOT(save()));
+	saveAction = fileMenu->addAction(QIcon(":/icons/document-save.png"), "Save", this, SLOT(save()));
 	saveAction->setDisabled(true);
 	saveAction->setShortcut(QKeySequence(QKeySequence::Save));
 
-	saveAsAction = fileMenu->addAction("Save As", this, SLOT(saveAs()));
+	saveAsAction = fileMenu->addAction(QIcon(":/icons/document-save-as.png"), "Save As", this, SLOT(saveAs()));
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
 
 	fileMenu->addSeparator();
@@ -366,12 +366,12 @@ void MDEdit::setupMenus()
 	exitAction->setShortcut(QKeySequence(QKeySequence::Quit));
 
 	QMenu* editMenu = menuBar->addMenu("Edit");
-	undoAction = editMenu->addAction("Undo", this, SLOT(undo()));
-	redoAction = editMenu->addAction("Redo", this, SLOT(redo()));
+	undoAction = editMenu->addAction(QIcon(":/icons/edit-undo.png"), "Undo", this, SLOT(undo()));
+	redoAction = editMenu->addAction(QIcon(":/icons/edit-redo.png"), "Redo", this, SLOT(redo()));
 
 
 	QMenu* viewMenu = menuBar->addMenu("View");
-	QAction* previewAction = viewMenu->addAction("Show HTML preview");
+	QAction* previewAction = viewMenu->addAction(QIcon(":/icons/text-html.png"), "Show HTML preview");
 	previewAction->setCheckable(true);
 	previewAction->setChecked(true);
 	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
