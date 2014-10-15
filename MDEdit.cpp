@@ -7,6 +7,7 @@
 #include <QApplication>
 
 #include "SaveFileQuestionDialog.h"
+#include "AboutDialog.h"
 
 
 MDEdit::MDEdit(QWidget *parent) :
@@ -378,6 +379,12 @@ void MDEdit::setupToolbar()
 	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
 
 
+	QMenu* helpMenu = menuBar->addMenu("Help");
+	helpMenu->addAction("About", this, SLOT(showAbout()));
+	helpMenu->addAction("About Qt", this, SLOT(showAboutQt()));
+
+
+
 	// add actions to the toolbar
 	toolbar->addAction(newAction);
 	toolbar->addAction(openAction);
@@ -419,4 +426,15 @@ void MDEdit::updateLengthLabel(int length)
 void MDEdit::updatePositionLabel(int line, int col)
 {
 	positionLabel->setText(QString("Line: %1, Col: %2").arg(line).arg(col));
+}
+
+
+void MDEdit::showAbout()
+{
+	AboutDialog::showDialog();
+}
+
+void MDEdit::showAboutQt()
+{
+	QApplication::aboutQt();
 }

@@ -78,6 +78,9 @@ private slots:
 	void _tab_cursorPositionChanged(int line, int col);
 	void _tab_redoAvailable(bool);
 	void _tab_undoAvailable(bool);
+
+	void showAbout();
+	void showAboutQt();
 };
 
 #endif // MDEDIT_H
