@@ -45,7 +45,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	splitter->setStretchFactor(1, 0);
 
 
-	setupToolbar();
+	setupMenus();
 	setupStatusbar();
 
 
@@ -339,7 +339,7 @@ void MDEdit::updateWindowTitle()
 }
 
 
-void MDEdit::setupToolbar()
+void MDEdit::setupMenus()
 {
 	menuBar = new QMenuBar(this);
 	menuBar->setObjectName("MenuBar");
