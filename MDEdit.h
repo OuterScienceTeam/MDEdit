@@ -9,7 +9,6 @@
 #include <QStackedWidget>
 #include <QMap>
 #include <QAction>
-#include <QTextBrowser>
 #include <QLabel>
 #include <QCloseEvent>
 #include <QDropEvent>
@@ -17,6 +16,7 @@
 
 #include "EditorView.h"
 #include "ThinSplitter.h"
+#include "TextBrowser.h"
 
 class MDEdit : public QMainWindow
 {
@@ -42,7 +42,7 @@ private:
 	EditorView* current;
 
 	ThinSplitter* splitter;
-	QTextBrowser* htmlPreview;
+	TextBrowser* htmlPreview;
 
 	inline void updateWindowTitle();
 	inline void setupToolbar();

@@ -37,9 +37,7 @@ MDEdit::MDEdit(QWidget *parent) :
 	tabStack = new QStackedWidget(this);
 	splitter->addWidget(tabStack);
 
-	htmlPreview = new QTextBrowser(this);
-	htmlPreview->setFrameStyle(QFrame::NoFrame);
-	htmlPreview->setFrameShadow(QFrame::Plain);
+	htmlPreview = new TextBrowser(this);
 	htmlPreview->setObjectName("HTMLPreview");
 	splitter->addWidget(htmlPreview);
 

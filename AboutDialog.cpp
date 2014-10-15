@@ -3,7 +3,6 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QDesktopServices>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
@@ -21,16 +20,11 @@ AboutDialog::AboutDialog(QWidget *parent) :
 	icon->setPixmap(QPixmap(":/mdedit_icon_large.png"));
 	layout->addWidget(icon);
 
-	textBrowser = new QTextBrowser(this);
-	textBrowser->setFrameStyle(QFrame::NoFrame);
-	textBrowser->setFrameShadow(QFrame::Plain);
+	textBrowser = new TextBrowser(this);
 	textBrowser->setObjectName("AboutText");
-	textBrowser->setReadOnly(true);
-	textBrowser->setOpenLinks(false);
 	QPalette pal = palette();
 	pal.setBrush(QPalette::Base, pal.background());
 	textBrowser->setPalette(pal);
-	connect(textBrowser, SIGNAL(anchorClicked(QUrl)), this, SLOT(browserLinkClicked(QUrl)));
 	layout->addWidget(textBrowser);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
@@ -61,9 +55,4 @@ void AboutDialog::showDialog()
 	dialog->textBrowser->setHtml(APPLICATION_ABOUT_TEXT);
 	dialog->exec();
 	delete dialog;
-}
-
-void AboutDialog::browserLinkClicked(const QUrl &url)
-{
-	QDesktopServices::openUrl(url);
 }

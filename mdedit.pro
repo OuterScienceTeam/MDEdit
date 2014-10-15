@@ -20,7 +20,8 @@ HEADERS  += \
 	LineNumberWidget.h \
 	defines.h \
     SaveFileQuestionDialog.h \
-    AboutDialog.h
+    AboutDialog.h \
+    TextBrowser.h
 
 SOURCES += \
 	main.cpp \
@@ -31,7 +32,8 @@ SOURCES += \
 	ThinSplitter.cpp \
 	LineNumberWidget.cpp \
     SaveFileQuestionDialog.cpp \
-    AboutDialog.cpp
+    AboutDialog.cpp \
+    TextBrowser.cpp
 
 RESOURCES += \
     data.qrc
