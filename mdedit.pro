@@ -36,4 +36,4 @@ SOURCES += \
     TextBrowser.cpp
 
 RESOURCES += \
-    data.qrc
+	data/data.qrc
