@@ -10,12 +10,6 @@
 #define ORGANISATION_NAME			"OuterScience"
 
 
-// begin application about text
-#define APPLICATION_ABOUT_TEXT \
-"<html><body>\n"\
-"MDEdit is a markdown editor. <br>\n"\
-"Current information at <a href=\"https://github.com/outerscienceteam/mdedit\">https://github.com/outerscienceteam/mdedit</a>.\n"\
-"</body></html>\n"
+#define ABOUT_DIALOG_URL			"qrc:/about_dialog_contents.txt"
 
-// end application about text
 #endif // DEFINES_H

@@ -1,0 +1,4 @@
+<html><body>
+MDEdit is a markdown editor.<br>
+Current information at <a href="https://github.com/outerscienceteam/mdedit">https://github.com/outerscienceteam/mdedit</a>.
+</body></html>

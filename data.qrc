@@ -3,5 +3,6 @@
         <file>style.css</file>
         <file>mdedit_icon.png</file>
         <file>mdedit_icon_large.png</file>
+        <file>about_dialog_contents.txt</file>
     </qresource>
 </RCC>

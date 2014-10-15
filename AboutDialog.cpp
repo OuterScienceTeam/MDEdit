@@ -40,6 +40,8 @@ AboutDialog::AboutDialog(QWidget *parent) :
 	QSize max = QApplication::desktop()->size();
 	setFixedSize(WIDTH < max.width() ? WIDTH : max.width(),
 				 HEIGHT < max.height() ? HEIGHT : max.height());
+
+	textBrowser->setSource(QUrl(ABOUT_DIALOG_URL));
 }
 
 AboutDialog::~AboutDialog()
@@ -47,12 +49,4 @@ AboutDialog::~AboutDialog()
 	delete textBrowser;
 	delete ok;
 	delete icon;
-}
-
-void AboutDialog::showDialog()
-{
-	AboutDialog* dialog = new AboutDialog();
-	dialog->textBrowser->setHtml(APPLICATION_ABOUT_TEXT);
-	dialog->exec();
-	delete dialog;
 }

@@ -429,7 +429,8 @@ void MDEdit::updatePositionLabel(int line, int col)
 
 void MDEdit::showAbout()
 {
-	AboutDialog::showDialog();
+	AboutDialog dialog(this);
+	dialog.exec();
 }
 
 void MDEdit::showAboutQt()

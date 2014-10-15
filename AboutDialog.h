@@ -10,7 +10,7 @@
 #define WIDTH	500
 #define HEIGHT	400
 
-class AboutDialog : QDialog
+class AboutDialog : public QDialog
 {
 	Q_OBJECT
 private:
@@ -21,8 +21,6 @@ private:
 public:
 	AboutDialog(QWidget* parent = 0);
 	~AboutDialog();
-
-	static void showDialog();
 };
 
 #endif // ABOUTDIALOG_H
