@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QVBoxLayout>
 #include <QMimeData>
+#include <QApplication>
 
 #include "SaveFileQuestionDialog.h"
 
@@ -58,6 +59,7 @@ MDEdit::MDEdit(QWidget *parent) :
 
 MDEdit::~MDEdit()
 {
+	delete menuBar;
 	delete toolbar;
 	delete statusbar;
 
@@ -340,33 +342,52 @@ void MDEdit::updateWindowTitle()
 
 void MDEdit::setupToolbar()
 {
+	menuBar = new QMenuBar(this);
+	menuBar->setObjectName("MenuBar");
+	this->setMenuBar(menuBar);
+
 	toolbar = new QToolBar(this);
 	toolbar->setMovable(false);
+	this->addToolBar(Qt::TopToolBarArea, toolbar);
 
-	toolbar->addAction("New", this, SLOT(newTab()));
+	QMenu* fileMenu = menuBar->addMenu("File");
+	QAction* newAction = fileMenu->addAction("New", this, SLOT(newTab()));
+	openAction = fileMenu->addAction("Open", this, SLOT(openFile()));
 
-	openAction = toolbar->addAction("Open", this, SLOT(openFile()));
-
-	saveAction = toolbar->addAction("Save", this, SLOT(save()));
+	saveAction = fileMenu->addAction("Save", this, SLOT(save()));
 	saveAction->setDisabled(true);
 	saveAction->setShortcut(QKeySequence(QKeySequence::Save));
 
-	saveAsAction = toolbar->addAction("Save As", this, SLOT(saveAs()));
+	saveAsAction = fileMenu->addAction("Save As", this, SLOT(saveAs()));
 	saveAsAction->setShortcut(QKeySequence(QKeySequence::SaveAs));
 
-	toolbar->addSeparator();
+	fileMenu->addSeparator();
 
-	undoAction = toolbar->addAction("Undo", this, SLOT(undo()));
-	redoAction = toolbar->addAction("Redo", this, SLOT(redo()));
+	QAction* exitAction = fileMenu->addAction("Exit", QApplication::instance(), SLOT(quit()));
+	exitAction->setShortcut(QKeySequence(QKeySequence::Quit));
 
-	toolbar->addSeparator();
+	QMenu* editMenu = menuBar->addMenu("Edit");
+	undoAction = editMenu->addAction("Undo", this, SLOT(undo()));
+	redoAction = editMenu->addAction("Redo", this, SLOT(redo()));
 
-	QAction* previewAction = toolbar->addAction("Preview");
+
+	QMenu* viewMenu = menuBar->addMenu("View");
+	QAction* previewAction = viewMenu->addAction("Show HTML preview");
 	previewAction->setCheckable(true);
 	previewAction->setChecked(true);
 	connect(previewAction, SIGNAL(toggled(bool)), htmlPreview, SLOT(setVisible(bool)));
 
-	this->addToolBar(Qt::TopToolBarArea, toolbar);
+
+	// add actions to the toolbar
+	toolbar->addAction(newAction);
+	toolbar->addAction(openAction);
+	toolbar->addAction(saveAction);
+	toolbar->addAction(saveAsAction);
+	toolbar->addSeparator();
+	toolbar->addAction(undoAction);
+	toolbar->addAction(redoAction);
+	toolbar->addSeparator();
+	toolbar->addAction(previewAction);
 }
 
 void MDEdit::updateToolbar()

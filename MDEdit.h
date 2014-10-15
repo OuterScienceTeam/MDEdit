@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QToolBar>
+#include <QMenuBar>
 #include <QStatusBar>
 #include <QTabBar>
 #include <QStackedWidget>
@@ -27,6 +28,8 @@ private:
 	QAction* saveAsAction;
 	QAction* redoAction;
 	QAction* undoAction;
+
+	QMenuBar* menuBar;
 
 	QStatusBar* statusbar;
 	QLabel* lengthLabel;
