@@ -79,11 +79,11 @@ void EditorView::save()
 
 void EditorView::saveAs()
 {
-	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", _file.filePath(), "Markdown (*.md *.markdown);;Hypertext Markup Language (*.html *.htm)");
+	QString filename = QFileDialog::getSaveFileName(this->window(), "Save As", _file.filePath(), "Markdown (*.md *.markdown);;Hypertext Markup Language (*.html)");
 	if(filename.isEmpty())
 		return;
 
-	if(filename.endsWith(".html") || filename.endsWith(".htm"))
+	if(filename.endsWith(".html"))
 	{
 		exportHtml(filename);
 		return;
