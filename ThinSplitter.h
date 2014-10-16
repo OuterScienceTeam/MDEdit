@@ -6,10 +6,10 @@
 class ThinSplitter : public QSplitter
 {
 public:
-	ThinSplitter(QWidget *parent);
+	ThinSplitter(QWidget* parent);
 
 protected:
-	virtual QSplitterHandle *createHandle();
+	virtual QSplitterHandle* createHandle();
 };
 
 #endif // THINSPLITTER_H

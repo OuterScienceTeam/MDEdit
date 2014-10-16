@@ -10,16 +10,14 @@ class LineNumberWidget;
 
 class MarkdownEditor : public QPlainTextEdit
 {
-	Q_OBJECT
-private:
+	friend class LineNumberWidget;
 
+	Q_OBJECT
 public:
-	explicit MarkdownEditor(QWidget *parent = 0);
+	explicit MarkdownEditor(QWidget* parent = 0);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent* event);
-
-	friend LineNumberWidget;
 };
 
 #endif // MARKDOWNEDITOR_H

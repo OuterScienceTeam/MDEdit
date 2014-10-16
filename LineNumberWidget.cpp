@@ -5,7 +5,7 @@
 #include <QTextBlock>
 
 
-LineNumberWidget::LineNumberWidget(MarkdownEditor* editor, QWidget *parent) :
+LineNumberWidget::LineNumberWidget(MarkdownEditor* editor, QWidget* parent) :
 	QWidget(parent)
 {
 	_editor = editor;

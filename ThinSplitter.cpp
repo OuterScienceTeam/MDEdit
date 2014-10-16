@@ -31,12 +31,11 @@ protected:
 
 		setMask(QRegion(contentsRect()));
 		QSplitterHandle::resize(event->size());
-		//QSplitterHandle::resizeEvent(event);
 	}
 };
 
 
-ThinSplitter::ThinSplitter(QWidget *parent) :
+ThinSplitter::ThinSplitter(QWidget* parent) :
 	QSplitter(parent)
 {
 	setOrientation(Qt::Horizontal);

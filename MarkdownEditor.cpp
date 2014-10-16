@@ -2,7 +2,7 @@
 
 #include <QMenu>
 
-MarkdownEditor::MarkdownEditor(QWidget *parent)
+MarkdownEditor::MarkdownEditor(QWidget* parent)
 	: QPlainTextEdit(parent)
 {
 	setContentsMargins(0, 0, 0, 0);
@@ -13,7 +13,7 @@ MarkdownEditor::MarkdownEditor(QWidget *parent)
 }
 
 
-void MarkdownEditor::contextMenuEvent(QContextMenuEvent *event)
+void MarkdownEditor::contextMenuEvent(QContextMenuEvent* event)
 {
 	QMenu* menu = createStandardContextMenu();
 	//TODO custom menu items

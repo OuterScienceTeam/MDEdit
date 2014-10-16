@@ -10,7 +10,7 @@
 #include "AboutDialog.h"
 
 
-MDEdit::MDEdit(QWidget *parent) :
+MDEdit::MDEdit(QWidget* parent) :
 	QMainWindow(parent),
 	current(0)
 {
@@ -70,7 +70,7 @@ MDEdit::~MDEdit()
 }
 
 
-void MDEdit::closeEvent(QCloseEvent *event)
+void MDEdit::closeEvent(QCloseEvent* event)
 {
 	if(!tabBar->count())
 		return;
@@ -111,7 +111,7 @@ void MDEdit::closeEvent(QCloseEvent *event)
 	}
 }
 
-void MDEdit::dragEnterEvent(QDragEnterEvent *event)
+void MDEdit::dragEnterEvent(QDragEnterEvent* event)
 {
 	if(event->mimeData()->hasUrls())
 	{
@@ -119,7 +119,7 @@ void MDEdit::dragEnterEvent(QDragEnterEvent *event)
 	}
 }
 
-void MDEdit::dropEvent(QDropEvent *event)
+void MDEdit::dropEvent(QDropEvent* event)
 {
 	foreach(const QUrl& fileUrl, event->mimeData()->urls())
 	{

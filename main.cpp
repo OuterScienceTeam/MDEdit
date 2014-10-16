@@ -6,7 +6,7 @@
 #include <QTextStream>
 #include <QDebug>
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
 	app.setApplicationName(APPLICATION_NAME);

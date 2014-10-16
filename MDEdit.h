@@ -58,7 +58,7 @@ protected:
 	void dropEvent(QDropEvent* event);
 
 public:
-	MDEdit(QWidget *parent = 0);
+	MDEdit(QWidget* parent = 0);
 	~MDEdit();
 
 public slots:
