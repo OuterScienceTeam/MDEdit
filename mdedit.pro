@@ -37,3 +37,5 @@ SOURCES += \
 
 RESOURCES += \
 	data/data.qrc
+
+RC_FILE = data/mdedit.rc
