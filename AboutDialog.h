@@ -7,8 +7,8 @@
 
 #include "TextBrowser.h"
 
-#define WIDTH	500
-#define HEIGHT	400
+#define ABOUT_DIALOG_WIDTH	500
+#define ABOUT_DIALOG_HEIGHT	400
 
 class AboutDialog : public QDialog
 {

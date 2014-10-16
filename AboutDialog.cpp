@@ -38,8 +38,8 @@ AboutDialog::AboutDialog(QWidget *parent) :
 	buttonLayout->addWidget(ok, 0, Qt::AlignRight);
 
 	QSize max = QApplication::desktop()->size();
-	setFixedSize(WIDTH < max.width() ? WIDTH : max.width(),
-				 HEIGHT < max.height() ? HEIGHT : max.height());
+	setFixedSize(ABOUT_DIALOG_WIDTH > max.width() ? max.width() : ABOUT_DIALOG_WIDTH,
+				 ABOUT_DIALOG_HEIGHT > max.height() ? max.height() : ABOUT_DIALOG_HEIGHT);
 
 	textBrowser->setSource(QUrl(ABOUT_DIALOG_URL));
 }
