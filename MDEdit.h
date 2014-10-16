@@ -45,6 +45,7 @@ private:
 	TextBrowser* htmlPreview;
 
 	inline void updateWindowTitle();
+	inline void updateHtmlPreviewSearchPath();
 	inline void setupMenus();
 	inline void updateToolbar();
 	inline void setupStatusbar();

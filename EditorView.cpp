@@ -125,6 +125,12 @@ QString EditorView::fullFilename() const
 }
 
 
+QString EditorView::dirname() const
+{
+	return _file.absolutePath();
+}
+
+
 bool EditorView::isVirtual() const
 {
 	return _virtual;

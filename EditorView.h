@@ -29,6 +29,7 @@ public:
 
 	QString filename() const;
 	QString fullFilename() const;
+	QString dirname() const;
 	bool isVirtual() const;
 	bool isModified() const;
 	int length() const;

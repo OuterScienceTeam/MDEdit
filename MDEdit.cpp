@@ -204,6 +204,8 @@ void MDEdit::_currentTabChanged(int index)
 	updateLengthLabel(current->length());
 	updatePositionLabel(current->cursorLine(), current->cursorCol());
 
+	updateHtmlPreviewSearchPath();
+
 	_tab_changed();
 
 	updateWindowTitle();
@@ -336,6 +338,11 @@ void MDEdit::redo()
 void MDEdit::updateWindowTitle()
 {
 	setWindowTitle(current->filename() + " - " APPLICATION_NAME);
+}
+
+void MDEdit::updateHtmlPreviewSearchPath()
+{
+	htmlPreview->setSearchPaths(QStringList( current->dirname() ));
 }
 
 
