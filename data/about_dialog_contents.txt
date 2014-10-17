@@ -1,4 +1,67 @@
-<html><body>
-MDEdit is a markdown editor.<br>
-Current information at <a href="https://github.com/outerscienceteam/mdedit">https://github.com/outerscienceteam/mdedit</a>.
-</body></html>
+<!Doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<h1>About MDEdit</h1>
+
+<p><strong> Version 0.3-beta </strong></p>
+
+<p>For current version and source code see &lt;<a href="https://github.com/outerscienceteam/mdedit">https://github.com/outerscienceteam/mdedit</a>&gt;</p>
+
+<p>MDEdit is a Markdown editor written in C++ using Qt toolkit.</p>
+
+<p>MDEdit was developed upon a friend&rsquo;s request with the goal<br/>
+ of providing a user-friendly, cross-platform, light-weight Markdown editor.</p>
+
+<p>MDEdit uses the Discount Markdown parser developed by David Loren Parsons<br/>
+&lt;<a href="https://github.com/Orc/discount">https://github.com/Orc/discount</a>></p>
+
+<h2>Copyright and License</h2>
+
+<p>MDEdit is a free software released under the Outer Science AT-SA License draft 1 or (at your option) any later version.</p>
+
+<center> Copyright (c) 2014 Hawkeye of OuterScience </center>
+
+<p>Permission is hereby granted, free of charge, to any entity obtaining a copy<br/>
+ of this Work including any associated files that are present (the &ldquo;Work&rdquo;),<br/>
+ to deal with the Work without restriction, including without limitation of<br/>
+ the rights to use, copy, modify, merge, publish, distribute, sell copies of<br/>
+ the Work, and to permit persons to whom the Work is distributed to do so,<br/>
+ under the following conditions:</p>
+
+<ol>
+<li><p>The text of this license shall be included in all copies<br/>
+or substantial portions of the Work.</p></li>
+<li><p>Neither the name of the author(s) nor the names of contributors of<br/>
+the Work may be used to endorse or promote products derived<br/>
+from the Work without specific prior written permission.</p></li>
+<li><p>All derivatives of the Work shall be licensed under the same license as<br/>
+the Work. Distributing the work in a compact package alongside other works<br/>
+is not considered a derivative, thus the components of the package can have<br/>
+different license(s), while the Work retains this license. The license<br/>
+covering the entire package cannot in any way limit the license of the Work.</p></li>
+<li><p>If a modified version of the work is distributed, prominent notices stating<br/>
+who modified it and which parts were modified must be included.</p></li>
+</ol>
+
+
+<p>Disclaimer:<br/>
+THE WORK IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br/>
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br/>
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br/>
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br/>
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br/>
+ OUT OF OR IN CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN<br/>
+ THE WORK.</p>
+
+<h2>Other licenses</h2>
+
+<p>The <a href="http://tango.freedesktop.org/Tango_Icon_Library">Tango Icon Library</a> used by MDEdit was released into the Public Domain.</p>
+
+<p>The MDEdit icon is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+
+<p>The binary distribution(s) may contain the Discount Markdown parser and the Qt toolkit. See &ldquo;LICENSE_DISCOUNT.txt&rdquo; and &ldquo;LICENSE_QT.txt&rdquo; respectively for their licenses.</p>
+</body>
+</html>
