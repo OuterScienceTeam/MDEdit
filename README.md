@@ -1,6 +1,6 @@
 MDEdit ![MDEdit icon](data/mdedit_icon.png)
 ======
-_(subject name to change)_ *Version 0.3-beta*
+*Version 1.0.0*
 
 ## About
 
