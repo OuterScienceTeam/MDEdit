@@ -354,6 +354,7 @@ void MDEdit::setupMenus()
 
 	toolbar = new QToolBar(this);
 	toolbar->setMovable(false);
+	toolbar->setIconSize(QSize(20, 20));
 	this->addToolBar(Qt::TopToolBarArea, toolbar);
 
 	QMenu* fileMenu = menuBar->addMenu("File");
